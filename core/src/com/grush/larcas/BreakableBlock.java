@@ -15,7 +15,7 @@ public class BreakableBlock extends Block {
     }
 
     @Override
-    public void hit() {
+    public void interact() {
         if (!isBroken) {
             isBroken = true;
         }

@@ -38,4 +38,6 @@ abstract class Block {
     public void destroy(){
         this.despawn();
     }
+    public void interact(){
+    }
 }

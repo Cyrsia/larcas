@@ -8,6 +8,10 @@ public class World {
 
     public static World INSTANCE = new World();
 
+    public int[] getSize(){
+        return new int[]{sizeX*Chunk.sizeX, sizeY*Chunk.sizeY};
+    }
+
     private World(){
         for (int y = 0; y<sizeY; y++){
             for (int x = 0; x<sizeX; x++){
@@ -15,10 +19,6 @@ public class World {
             }
         }
         LogMaster.INSTANCE.log("new World");
-
-        for (int x = 0; x<sizeX*Chunk.sizeX; x++){
-            this.setBlock(x,0,StoneBlock.class);
-        }
     }
     public Chunk[][] getData(){
         return this.data;
@@ -49,6 +49,7 @@ public class World {
                 Block newBlock = blockType.getDeclaredConstructor(int.class, int.class).newInstance(x, y);
                 Chunk chunk = this.getChunk(x, y);
                 chunk.setBlock(x % Chunk.sizeX, y % Chunk.sizeY, newBlock);
+                newBlock.spawn();
                 return newBlock;
             } catch (Exception e) {
                 LogMaster.INSTANCE.log("setBlock exception: " + e.getMessage());

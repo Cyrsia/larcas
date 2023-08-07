@@ -14,6 +14,8 @@ public class GameLogic {
     private GameLogic(){
 		world = World.INSTANCE;
 		cameraPosition = Camera.INSTANCE.coordinate;
+		GameStart.INSTANCE.start();
+
 	}
 
     public void update(){

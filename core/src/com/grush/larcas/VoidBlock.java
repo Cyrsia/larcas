@@ -4,4 +4,9 @@ public class VoidBlock extends Block {
     public VoidBlock(int x, int y){
         super(x, y);
     }
+
+    @Override
+    public void hit(){
+        World.INSTANCE.setBlock(this.x, this.y, StoneBlock.class);
+    }
 }

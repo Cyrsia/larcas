@@ -11,10 +11,8 @@ abstract class Block {
         this.x = x;
         this.y = y;
     }
-
-    Texture texture;
     public Texture getTexture(){
-        return texture;
+        return null;
     }
 
     public int getUniqueState(int range){
@@ -22,5 +20,12 @@ abstract class Block {
     }
 
     public void hit(){
+    }
+
+    public void updateState(){
+    }
+    public void spawn(){
+        World.INSTANCE.getBlock(this.x, this.y-1).updateState();
+        World.INSTANCE.getBlock(this.x, this.y+1).updateState();
     }
 }

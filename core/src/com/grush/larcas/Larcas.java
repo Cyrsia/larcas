@@ -54,8 +54,13 @@ public class Larcas extends ApplicationAdapter {
 	}
 
 	public void WorldRend() {
-        for (int y = 0; y < World.sizeY; y++) {
-            for (int x = 0; x < World.sizeX; x++) {
+		int minXChunk = Math.max(0, World.INSTANCE.getChunkX(Player.PLAYER.coordinate.x.intValue() - Camera.INSTANCE.renderDistance));
+		int maxXChunk = Math.min(World.sizeX, World.INSTANCE.getChunkX(Player.PLAYER.coordinate.x.intValue() + Camera.INSTANCE.renderDistance));
+		int minYChunk = Math.max(0, World.INSTANCE.getChunkY(Player.PLAYER.coordinate.y.intValue() - Camera.INSTANCE.renderDistance));
+		int maxYChunk = Math.min(World.sizeY, World.INSTANCE.getChunkY(Player.PLAYER.coordinate.y.intValue() + Camera.INSTANCE.renderDistance));
+
+        for (int y = minYChunk; y < maxYChunk; y++) {
+            for (int x = minXChunk; x < maxXChunk; x++) {
                 for (int chunkY = 0; chunkY < Chunk.sizeY; chunkY++) {
                     for (int chunkX = 0; chunkX < Chunk.sizeX; chunkX++) {
                         Block block = world.getData()[y][x].getData()[chunkY][chunkX];

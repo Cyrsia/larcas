@@ -14,6 +14,9 @@ public class TexMaster {
     public final Texture StoneMidTex = new Texture("blocks/stone_mid.png");
     public final Texture StoneDownTex = new Texture("blocks/stone_down.png");
 
+    public final Texture BrokenBlockTex = new Texture("blocks/broken.png");
+    public final Texture BreakableBlockTex = new Texture("blocks/breakable.png");
+
     private TexMaster(){}
     public void disposeAll(){
         StoneTex.dispose();
@@ -21,5 +24,7 @@ public class TexMaster {
         StoneMidTex.dispose();
         StoneDownTex.dispose();
         TestTex.dispose();
+        BrokenBlockTex.dispose();
+        BreakableBlockTex.dispose();
     }
 }

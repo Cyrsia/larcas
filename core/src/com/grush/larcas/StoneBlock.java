@@ -7,7 +7,7 @@ public class StoneBlock extends Block {
 
     StoneBlock(int x, int y) {
         super(x, y);
-        updateState();
+        this.updateState();
     }
     @Override
     public void updateState(){

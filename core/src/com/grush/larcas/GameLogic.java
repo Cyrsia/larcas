@@ -15,12 +15,12 @@ public class GameLogic {
 		world = World.INSTANCE;
 		cameraPosition = Camera.INSTANCE.coordinate;
 		GameStart.INSTANCE.start();
-
 	}
 
     public void update(){
 		blockSize = Camera.INSTANCE.blockSize;
-        blockX = (Gdx.input.getX() + cameraPosition.x) / blockSize;
+
+        blockX = (Gdx.input.getX() + cameraPosition.x) / blockSize; // Высчитываются координаты мышки по мерке мира игры
         blockY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cameraPosition.y) / blockSize;
 
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {

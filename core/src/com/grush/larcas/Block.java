@@ -3,7 +3,6 @@ package com.grush.larcas;
 import com.badlogic.gdx.graphics.Texture;
 
 abstract class Block {
-    final static Block nullBlock = null;
     int x;
     int y;
 

@@ -1,10 +1,10 @@
 package com.grush.larcas;
 
 public class World {
-    static final public int sizeX = 6;
-    static final public int sizeY = 4;
+    static final public int sizeX = 10;
+    static final public int sizeY = 10;
 
-    private Chunk[][] data = new Chunk[sizeY][sizeX];
+    private final Chunk[][] data = new Chunk[sizeY][sizeX];
 
     public static World INSTANCE = new World();
 
@@ -15,6 +15,10 @@ public class World {
             }
         }
         LogMaster.INSTANCE.log("new World");
+
+        for (int x = 0; x<sizeX*Chunk.sizeX; x++){
+            this.setBlock(x,0,StoneBlock.class);
+        }
     }
     public Chunk[][] getData(){
         return this.data;
@@ -35,15 +39,21 @@ public class World {
         if (isValidPosition(x, y)){
             Chunk chunk = this.getChunk(x, y);
             return chunk.getBlock(x%Chunk.sizeX, y%Chunk.sizeY);
+        } else {
+            return new VoidBlock(x, y);
+        }
+    }
+    public Block setBlock(int x, int y, Class<? extends Block> blockType) {
+        if (isValidPosition(x, y)) {
+            try {
+                Block newBlock = blockType.getDeclaredConstructor(int.class, int.class).newInstance(x, y);
+                Chunk chunk = this.getChunk(x, y);
+                chunk.setBlock(x % Chunk.sizeX, y % Chunk.sizeY, newBlock);
+                return newBlock;
+            } catch (Exception e) {
+                LogMaster.INSTANCE.log("setBlock exception: " + e.getMessage());
+            }
         }
         return null;
-    }
-    public int setBlock(int x, int y, Block newBlock){
-        if (isValidPosition(x, y)){
-            Chunk chunk = this.getChunk(x, y);
-            chunk.setBlock(x%Chunk.sizeX, y%Chunk.sizeY, newBlock);
-            return 1;
-        }
-        return -1;
     }
 }

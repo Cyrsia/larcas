@@ -22,11 +22,7 @@ public class GameLogic {
         blockY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cameraPosition.y) / blockSize;
 
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-			Block newBlock = new StoneBlock();
-			if (world.getBlock(blockX, blockY) instanceof StoneBlock) {
-				newBlock = new TestBlock();
-			}
-			world.setBlock(blockX, blockY, newBlock);
+			World.INSTANCE.getBlock(blockX, blockY).hit();
 		}
 
 		Camera.INSTANCE.update();

@@ -10,6 +10,7 @@ abstract class Block {
     int y;
     public Map<String, String> states = new HashMap<>();
     boolean visible = true;
+    boolean isSolid = true;
 
     Block (int x, int y){
         this.x = x;
@@ -39,5 +40,14 @@ abstract class Block {
         this.despawn();
     }
     public void interact(){
+    }
+
+    public boolean containsPoint(float pointX, float pointY) {
+        float minX = x * Camera.INSTANCE.blockSize;
+        float maxX = minX + Camera.INSTANCE.blockSize;
+        float minY = y * Camera.INSTANCE.blockSize;
+        float maxY = minY + Camera.INSTANCE.blockSize;
+
+        return pointX >= minX && pointX <= maxX && pointY >= minY && pointY <= maxY;
     }
 }

@@ -10,34 +10,26 @@ public class Camera {
     private Camera(){}
     int blockX;
     int blockY;
-    public int blockSize = 16;
+    public int blockSize = 20;
+    public final int renderDistance = 8;
     public void update(){
-		blockX = (int) ((Gdx.input.getX() + coordinate.x) / blockSize); // Высчитываются координаты мышки по мерке мира игры
+        if (Gdx.input.isKeyJustPressed(Input.Keys.U)){
+            if (this.blockSize <= 24){
+                this.blockSize++;
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.J)){
+            if (this.blockSize >= 16){
+                this.blockSize--;
+            }
+        }
+
+        blockX = (int) ((Gdx.input.getX() + coordinate.x) / blockSize); // Высчитываются координаты мышки по мерке мира игры
         blockY = (int) ((Gdx.graphics.getHeight() - Gdx.input.getY() + coordinate.y) / blockSize);
         blockCoordinate.x = blockX;
         blockCoordinate.y = blockY;
 
         updateP(Player.PLAYER.coordinate);
-
-//        if (Gdx.input.isKeyPressed(Input.Keys.W)){
-//            this.coordinate.y--;
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.S)){
-//            this.coordinate.y++;
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.D)){
-//            this.coordinate.x--;
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.A)){
-//            this.coordinate.x++;
-//        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.U)){
-            this.blockSize++;
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.J)){
-            this.blockSize--;
-        }
     }
 
     public void updateP(Coordinate<Float> player){

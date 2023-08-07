@@ -2,6 +2,10 @@ package com.grush.larcas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Net;
+import com.badlogic.gdx.math.Rectangle;
+
+import java.util.Objects;
 
 public class GameLogic {
     public static GameLogic INSTANCE = new GameLogic();
@@ -23,6 +27,13 @@ public class GameLogic {
 		float dx = a.x - b.x;
 		float dy = a.y - b.y;
 		return (float) Math.sqrt(dx * dx + dy * dy);
+	}
+
+	static boolean doOverlap(Coordinate<Float> l1, Coordinate<Integer> l2) {
+		Rectangle rect1 = new Rectangle(l1.x, l1.y, 0.1f,0.1f);
+		Rectangle rect2 = new Rectangle(l2.x, l2.y, 0.1f,0.1f);
+
+		return !rect1.overlaps(rect2);
 	}
 
 

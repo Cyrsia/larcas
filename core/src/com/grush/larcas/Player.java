@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Entity {
-    final public static Player PLAYER = new Player(new Coordinate<Float>(0f, 1f), new HashMap<>());
+    final public static Player PLAYER = new Player(new Coordinate<Float>(0f, 6f), new HashMap<>());
     private static final float MOVEMENT_SPEED = 0.1f;
     Camera camera;
 
@@ -14,11 +14,6 @@ public class Player extends Entity {
         super(coordinate, states);
         camera = Camera.INSTANCE;
 
-    }
-    @Override
-    public void move(float dx, float dy) {
-        coordinate.x += dx * MOVEMENT_SPEED;
-        coordinate.y += dy * MOVEMENT_SPEED;
     }
 
     public void interact() {

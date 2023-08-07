@@ -2,11 +2,12 @@ package com.grush.larcas;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class StoneBlock extends Block {
-    Texture texture = TexMaster.INSTANCE.StoneTex;
+import java.util.Map;
 
+public class StoneBlock extends Block {
     StoneBlock(int x, int y) {
         super(x, y);
+        this.states.put("texture", "stone");
         this.updateState();
     }
     @Override
@@ -15,16 +16,36 @@ public class StoneBlock extends Block {
         boolean Down = World.INSTANCE.getBlock(this.x, this.y + 1) instanceof StoneBlock;
 
         if (Up && Down){
-            this.texture = TexMaster.INSTANCE.StoneMidTex;
+            this.states.put("texture", "mid");
         } else if (Down){
-            this.texture = TexMaster.INSTANCE.StoneUpTex;
+            this.states.put("texture", "up");
         } else if (Up){
-            this.texture = TexMaster.INSTANCE.StoneDownTex;
+            this.states.put("texture", "down");
         } else {
-            this.texture = TexMaster.INSTANCE.StoneTex;
+            this.states.put("texture", "stone");
         }
     }
     public Texture getTexture(){
-        return this.texture;
+        switch (this.states.get("texture")){
+            case "up":
+                return TexMaster.INSTANCE.StoneBlockUpTex;
+            case "down":
+                return TexMaster.INSTANCE.StoneBlockDownTex;
+            case "mid":
+                return TexMaster.INSTANCE.StoneBlockMidTex;
+        }
+        return TexMaster.INSTANCE.StoneBlockTex;
+    }
+    @Override
+    public void hit() {
+        Block right = World.INSTANCE.getBlock(this.x + 1, this.y);
+        Block left = World.INSTANCE.getBlock(this.x - 1, this.y);
+
+        if (right instanceof StoneBlock && left instanceof StoneBlock) {
+            if (right.states.get("texture").equals("mid") && left.states.get("texture").equals("mid")) {
+                this.destroy();
+                World.INSTANCE.setBlock(this.x, this.y, BreakableBlock.class);
+            }
+        }
     }
 }

@@ -35,20 +35,23 @@ public class Larcas extends ApplicationAdapter {
 		TexMaster.INSTANCE.disposeAll();
 		batch.dispose();
 	}
-
+    Block tempBlock;
 	public void WorldRend() {
 		for (int y = 0; y < World.sizeY; y++) {
 			for (int x = 0; x < World.sizeX; x++) {
 				for (int chunkY = 0; chunkY < Chunk.sizeY; chunkY++) {
 					for (int chunkX = 0; chunkX < Chunk.sizeX; chunkX++) {
 						if (world.getData()[y][x].getData()[chunkY][chunkX] != null) {
-							batch.draw(
-									world.getData()[y][x].getData()[chunkY][chunkX].getTexture(),
-									(x * Chunk.sizeX + chunkX) * Camera.INSTANCE.blockSize - cameraPosition.x,
-									(y * Chunk.sizeY + chunkY) * Camera.INSTANCE.blockSize - cameraPosition.y,
-									Camera.INSTANCE.blockSize,
-									Camera.INSTANCE.blockSize
-							);
+                            tempBlock = world.getData()[y][x].getData()[chunkY][chunkX];
+                            if (tempBlock.visible){
+                                batch.draw(
+                                        world.getData()[y][x].getData()[chunkY][chunkX].getTexture(),
+                                        (x * Chunk.sizeX + chunkX) * Camera.INSTANCE.blockSize - cameraPosition.x,
+                                        (y * Chunk.sizeY + chunkY) * Camera.INSTANCE.blockSize - cameraPosition.y,
+                                        Camera.INSTANCE.blockSize,
+                                        Camera.INSTANCE.blockSize
+                                );
+                            }
 						}
 					}
 				}

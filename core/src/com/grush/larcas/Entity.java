@@ -1,6 +1,7 @@
 package com.grush.larcas;
 
 import com.badlogic.gdx.graphics.Texture;
+import jdk.jpackage.internal.Log;
 
 import java.util.Map;
 
@@ -9,39 +10,29 @@ abstract class Entity {
     Map<?, ?> states;
     boolean visible = true;
     float interactionRange = 4f;
-
     private static final float MOVEMENT_SPEED = 0.1f;
+    public MoveVector vector = new MoveVector(0,0,1.5f);
+    float deceleration = 0.005f;
+
 
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states){
         this.coordinate = coordinate;
         this.states = states;
+        this.vector.lockY = false;
         EntityManager.INSTANCE.addEntity(this);
     }
-
-    public void move(float dx, float dy) {
-        if (!isCollision(dx, dy)){
-            coordinate.x += dx * MOVEMENT_SPEED;
-            coordinate.y += dy * MOVEMENT_SPEED;
-        }
-    }
-
     public Texture getTexture(){
         return null;
     }
+    float newX, newY;
+    public void update(){
+        vector.decelerateAccelerationX(deceleration);
+        vector.decelerateAccelerationY(deceleration);
 
-    public boolean isCollision(float dx, float dy) {
-        float newX = coordinate.x + dx * MOVEMENT_SPEED;
-        float newY = coordinate.y + dy * MOVEMENT_SPEED;
+        newX = coordinate.x + vector.dx * MOVEMENT_SPEED;
+        newY = coordinate.y + vector.dy * MOVEMENT_SPEED;
 
-        for (int y = (int) newY; y <= newY + 1; y++) {
-            for (int x = (int) newX; x <= newX + 1; x++) {
-                Block block = World.INSTANCE.getBlock(x, y);
-                if (block.isSolid && GameLogic.doOverlap(coordinate, new Coordinate<>(x, y))) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
+        coordinate.x = newX;
+        coordinate.y = newY;
+    };
 }

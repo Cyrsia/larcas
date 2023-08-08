@@ -11,7 +11,7 @@ public class Camera {
     int blockX;
     int blockY;
     public int blockSize = 20;
-    public final int renderDistance = 25;
+    public final int renderDistance = 50;
     public void update(){
         if (Gdx.input.isKeyJustPressed(Input.Keys.U)){
             if (this.blockSize <= 24){

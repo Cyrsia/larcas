@@ -3,8 +3,8 @@ package com.grush.larcas;
 public class Chunk {
     final int x;
     final int y;
-    static final public int sizeX = 5;
-    static final public int sizeY = 5;
+    static final public int sizeX = 10;
+    static final public int sizeY = 10;
     private final Block[][] data;
     public Chunk(int x, int y) {
         this.x = x;

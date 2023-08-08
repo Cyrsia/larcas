@@ -22,11 +22,36 @@ public class GameStart {
         int[] size = world.getSize();
 
         for (int x = 0; x < size[0]; x++) {
-            int n = (int) Math.sqrt(random.nextInt(1000)/100);
-            for (int y = 0; y < n; y++) {
-                world.setBlock(x, y, StoneBlock.class);
+            for (int y = 0; y < size[1]; y++) {
+                float chance = 0.01f;
+                for (int xx = -1; xx < 2; xx++) {
+                    for (int yy = -1; yy < 2; yy++) {
+                        if (world.getBlock(x + xx, y + yy).isSolid) {
+                            chance += 0.23f;
+                        }
+                    }
+                }
+                if ((float) random.nextInt(100) /100 < chance) {
+                    world.setBlock(x, y, BreakableBlock.class);
+                }
             }
+        }
 
+        for (int x = 0; x < size[0]; x++) {
+            for (int y = 0; y < size[1]; y++) {
+                float chance = 0f;
+                for (int xx = -1; xx < 2; xx++) {
+                    for (int yy = -1; yy < 2; yy++) {
+                        Class<? extends Block> block = world.getBlock(x + xx, y + yy).getClass();
+                        if (block == BreakableBlock.class) {
+                            chance += 1f;
+                        }
+                    }
+                }
+                if (chance >= 7) {
+                    world.setBlock(x, y, StoneBlock.class);
+                }
+            }
         }
     }
 }

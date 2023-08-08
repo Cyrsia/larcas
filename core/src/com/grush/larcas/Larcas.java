@@ -4,8 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import java.util.ArrayList;
-
 public class Larcas extends ApplicationAdapter {
 	SpriteBatch batch;
 	World world;
@@ -38,7 +36,6 @@ public class Larcas extends ApplicationAdapter {
 		TexMaster.INSTANCE.disposeAll();
 		batch.dispose();
 	}
-    Block tempBlock;
 	public void EntityRender() {
 		for (Entity entity : EntityManager.INSTANCE.entities) {
 			if (entity.visible) {

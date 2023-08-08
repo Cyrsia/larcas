@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Entity {
-    final public static Player PLAYER = new Player(new Coordinate<Float>(0f, 6f), new HashMap<>());
+    final public static Player PLAYER = new Player(new Coordinate<Float>((float) World.INSTANCE.getSize()[0]/2, (float) World.INSTANCE.getSize()[1]/2), new HashMap<>());
     private static final float MOVEMENT_SPEED = 0.1f;
     Camera camera;
 
@@ -29,8 +29,6 @@ public class Player extends Entity {
             blockToHit.hit();
         }
     }
-
-
     @Override
     public Texture getTexture() {
         return TexMaster.INSTANCE.TestTex;

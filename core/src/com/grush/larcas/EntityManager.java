@@ -7,8 +7,12 @@ public class EntityManager {
     final public List<Entity> entities = new ArrayList<>();
 
     public static EntityManager INSTANCE = new EntityManager();
-
     public void addEntity(Entity entity) {
         entities.add(entity);
+    }
+    public void updateAll(){
+        for (Entity entity : entities) {
+            entity.update();
+        }
     }
 }

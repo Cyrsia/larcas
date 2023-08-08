@@ -1,8 +1,9 @@
 package com.grush.larcas;
 
 public class World {
-    static final public int sizeX = 20;
-    static final public int sizeY = 10;
+    static final public int sizeX = 50;
+    static final public int sizeY = 50;
+    public static float gravity = 0.01f;
 
     private final Chunk[][] data = new Chunk[sizeY][sizeX];
 

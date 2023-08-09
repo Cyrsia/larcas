@@ -43,8 +43,8 @@ public class Larcas extends ApplicationAdapter {
 					entity.getTexture(),
 					entity.coordinate.x*(float)Camera.INSTANCE.blockSize - cameraPosition.x,
 					entity.coordinate.y*(float) Camera.INSTANCE.blockSize - cameraPosition.y,
-					Camera.INSTANCE.blockSize,
-					Camera.INSTANCE.blockSize
+					Camera.INSTANCE.blockSize*entity.size[0],
+					Camera.INSTANCE.blockSize*entity.size[1]
 				);
 			}
 		}

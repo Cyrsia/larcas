@@ -11,6 +11,18 @@ abstract class Block {
     public Map<String, String> states = new HashMap<>();
     boolean visible = true;
     boolean isSolid = true;
+    public static float[] size = new float[]{1f, 1f};
+    public boolean overlap(Coordinate<Float> coordinate, float w1, float h1){
+        float x1 = coordinate.x;
+        float y1 = coordinate.y;
+        return (x1 < (this.x + size[1])) & ((x1 + w1) > this.x) & (y1 < (this.y + size[0])) & ((y1 + h1) > this.y);
+    }
+    public boolean collides(Coordinate<Float> coordinate, float[] size){
+        if (!isSolid){
+            return false;
+        }
+        return overlap(coordinate, size[0], size[1]);
+    }
 
     Block (int x, int y){
         this.x = x;

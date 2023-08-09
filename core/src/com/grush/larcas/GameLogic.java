@@ -45,16 +45,16 @@ public class GameLogic {
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-			player.vector.addX(0.04f);
+			player.vector.addX(player.speed);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-			player.vector.addX(-0.04f);
+			player.vector.addX(-player.speed);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-			player.vector.addY(0.04f);
+			player.vector.addY(player.speed);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-			player.vector.addY(-0.04f);
+			player.vector.addY(-player.speed);
 		}
 
 		Camera.INSTANCE.update();

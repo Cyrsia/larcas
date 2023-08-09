@@ -33,7 +33,7 @@ public class Camera {
     }
 
     public void updateP(Coordinate<Float> player){
-        this.coordinate.x = (player.x - 0.5f*Gdx.graphics.getWidth()/blockSize) * blockSize;
-        this.coordinate.y = (player.y - 0.5f*Gdx.graphics.getHeight()/blockSize) * blockSize;
+        this.coordinate.x = (player.x+Player.PLAYER.size[0]/2 - 0.5f*Gdx.graphics.getWidth()/blockSize) * blockSize;
+        this.coordinate.y = (player.y+Player.PLAYER.size[1]/2 - 0.5f*Gdx.graphics.getHeight()/blockSize) * blockSize;
     }
 }

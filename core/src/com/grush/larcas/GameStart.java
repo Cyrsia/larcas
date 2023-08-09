@@ -31,6 +31,11 @@ public class GameStart {
                         }
                     }
                 }
+                if (x == 0 || y == 0) {
+                    chance = 1f;
+                } else if (x == size[0]-1 || y == size[1]-1) {
+                    chance = 1f;
+                }
                 if ((float) random.nextInt(100) /100 < chance) {
                     world.setBlock(x, y, BreakableBlock.class);
                 }

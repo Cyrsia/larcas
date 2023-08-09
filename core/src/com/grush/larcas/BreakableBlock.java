@@ -18,6 +18,7 @@ public class BreakableBlock extends Block {
     public void interact() {
         if (!isBroken) {
             isBroken = true;
+            isSolid = false;
         }
     }
 }

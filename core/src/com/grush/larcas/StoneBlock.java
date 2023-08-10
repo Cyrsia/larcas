@@ -26,14 +26,6 @@ public class StoneBlock extends Block {
         }
     }
     public Texture getTexture(){
-        switch (this.states.get("texture")){
-            case "up":
-                return TexMaster.INSTANCE.StoneBlockUpTex;
-            case "down":
-                return TexMaster.INSTANCE.StoneBlockDownTex;
-            case "mid":
-                return TexMaster.INSTANCE.StoneBlockMidTex;
-        }
         return TexMaster.INSTANCE.StoneBlockTex;
     }
     @Override

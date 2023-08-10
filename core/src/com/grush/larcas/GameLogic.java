@@ -11,7 +11,7 @@ public class GameLogic {
     public static GameLogic INSTANCE = new GameLogic();
 	World world;
 	Coordinate<Float> cameraPosition;
-	int blockSize;
+	float blockSize;
 	int blockX;
 	int blockY;
 	Player player;

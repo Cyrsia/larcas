@@ -34,13 +34,13 @@ public class MoveVector {
     }
 
     public void decelerateAccelerationX(float speed){
-        if (Math.abs(dx) > 0.0001) this.dx -=(dx > 0 ? 1 : -1)*speed;
+        if (Math.abs(dx) > 0.01) this.dx -=(dx > 0 ? 1 : -1)*speed;
         else dx = 0;
 
     }
 
     public void decelerateAccelerationY(float speed){
-        if (Math.abs(dy) > 0.0001) this.dy -=(dy > 0 ? 1 : -1)*speed;
+        if (Math.abs(dy) > 0.01) this.dy -=(dy > 0 ? 1 : -1)*speed;
         else dy = 0;
     }
 }

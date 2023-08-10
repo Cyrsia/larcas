@@ -10,17 +10,17 @@ public class Camera {
     private Camera(){}
     int blockX;
     int blockY;
-    public int blockSize = 20;
+    public float blockSize = 20;
     public final int renderDistance = 50;
     public void update(){
-        if (Gdx.input.isKeyJustPressed(Input.Keys.U)){
-            if (this.blockSize <= 24){
-                this.blockSize++;
+        if (Gdx.input.isKeyPressed(Input.Keys.U)){
+            if (this.blockSize <= 32){
+                this.blockSize+=0.1f;
             }
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.J)){
-            if (this.blockSize >= 16){
-                this.blockSize--;
+        if (Gdx.input.isKeyPressed(Input.Keys.J)){
+            if (this.blockSize >= 4){
+                this.blockSize-=0.1f;
             }
         }
 

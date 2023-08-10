@@ -4,6 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.Random;
+
 public class Larcas extends ApplicationAdapter {
 	SpriteBatch batch;
 	World world;
@@ -41,8 +43,8 @@ public class Larcas extends ApplicationAdapter {
 			if (entity.visible) {
 				batch.draw(
 					entity.getTexture(),
-					entity.coordinate.x*(float)Camera.INSTANCE.blockSize - cameraPosition.x,
-					entity.coordinate.y*(float) Camera.INSTANCE.blockSize - cameraPosition.y,
+					entity.coordinate.x*Camera.INSTANCE.blockSize - cameraPosition.x,
+					entity.coordinate.y*Camera.INSTANCE.blockSize - cameraPosition.y,
 					Camera.INSTANCE.blockSize*entity.size[0],
 					Camera.INSTANCE.blockSize*entity.size[1]
 				);
@@ -51,21 +53,22 @@ public class Larcas extends ApplicationAdapter {
 	}
 
 	public void WorldRend() {
-		int minXChunk = Math.max(0, World.INSTANCE.getChunkX(Player.PLAYER.coordinate.x.intValue() - Camera.INSTANCE.renderDistance));
-		int maxXChunk = Math.min(World.sizeX, World.INSTANCE.getChunkX(Player.PLAYER.coordinate.x.intValue() + Camera.INSTANCE.renderDistance));
-		int minYChunk = Math.max(0, World.INSTANCE.getChunkY(Player.PLAYER.coordinate.y.intValue() - Camera.INSTANCE.renderDistance));
-		int maxYChunk = Math.min(World.sizeY, World.INSTANCE.getChunkY(Player.PLAYER.coordinate.y.intValue() + Camera.INSTANCE.renderDistance));
+		int minXChunk = Math.max(0, world.getChunkX(Player.PLAYER.coordinate.x.intValue() - Camera.INSTANCE.renderDistance));
+		int maxXChunk = Math.min(World.sizeX, world.getChunkX(Player.PLAYER.coordinate.x.intValue() + Camera.INSTANCE.renderDistance));
+		int minYChunk = Math.max(0, world.getChunkY(Player.PLAYER.coordinate.y.intValue() - Camera.INSTANCE.renderDistance));
+		int maxYChunk = Math.min(World.sizeY, world.getChunkY(Player.PLAYER.coordinate.y.intValue() + Camera.INSTANCE.renderDistance));
 
         for (int y = minYChunk; y < maxYChunk; y++) {
             for (int x = minXChunk; x < maxXChunk; x++) {
+				Block[][] chunk = world.getChunk(x, y).getData();
                 for (int chunkY = 0; chunkY < Chunk.sizeY; chunkY++) {
                     for (int chunkX = 0; chunkX < Chunk.sizeX; chunkX++) {
-                        Block block = world.getData()[y][x].getData()[chunkY][chunkX];
+                        Block block = chunk[chunkY][chunkX];
                         if (block != null && block.visible) {
                             batch.draw(
                                     block.getTexture(),
-                                    (x * Chunk.sizeX + chunkX) * Camera.INSTANCE.blockSize - cameraPosition.x +1,
-                                    (y * Chunk.sizeY + chunkY) * Camera.INSTANCE.blockSize - cameraPosition.y -1,
+                                    (x * Chunk.sizeX + chunkX) * Camera.INSTANCE.blockSize - cameraPosition.x,
+                                    (y * Chunk.sizeY + chunkY) * Camera.INSTANCE.blockSize - cameraPosition.y,
                                     Camera.INSTANCE.blockSize,
                                     Camera.INSTANCE.blockSize
 							);

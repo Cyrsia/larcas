@@ -21,7 +21,6 @@ abstract class Entity {
     public Texture getTexture(){
         return null;
     }
-    float newX, newY;
     public boolean overlaps(float xn, float yn){
         for (int y = (int)yn - 1; y < (int)(yn + this.size[1] + 1); y++){
             for (int x = (int)xn - 1; x < (int)(xn + this.size[0] + 1); x++){
@@ -32,26 +31,40 @@ abstract class Entity {
         }
         return false;
     }
-    public void update(){
-        if (overlaps(coordinate.x, coordinate.y)){
-            coordinate.x = newX;
-            coordinate.y = newY;
-        }
-
-        newX = coordinate.x.floatValue();
-        newY = coordinate.y.floatValue();
-
+    float prevX, prevY;
+    public void updateXAxis() {
+        vector.decelerateAccelerationX(deceleration);
         coordinate.x += vector.dx * MOVEMENT_SPEED;
+
+        if (overlaps(coordinate.x, coordinate.y)) {
+            while (overlaps(coordinate.x, coordinate.y)) {
+                coordinate.x = prevX;
+                vector.decelerateAccelerationX(deceleration);
+                coordinate.x += vector.dx * MOVEMENT_SPEED;
+            }
+        } else {
+            prevX = coordinate.x;
+        }
+    }
+
+    public void updateYAxis() {
+        vector.decelerateAccelerationY(deceleration);
         coordinate.y += vector.dy * MOVEMENT_SPEED;
 
-        if (overlaps(newX, newY)){
-            coordinate.x = newX;
-            coordinate.y = newY;
-            vector.dx = 0;
-            vector.dy = 0;
+        if (overlaps(coordinate.x, coordinate.y)) {
+            while (overlaps(coordinate.x, coordinate.y)) {
+                coordinate.y = prevY;
+                vector.decelerateAccelerationY(deceleration);
+                coordinate.y += vector.dy * MOVEMENT_SPEED;
+            }
         } else {
-            vector.decelerateAccelerationX(deceleration);
-            vector.decelerateAccelerationY(deceleration);
+            prevY = coordinate.y;
         }
-    };
+    }
+
+    public void update() {
+        updateXAxis();
+        updateYAxis();
+    }
+
 }

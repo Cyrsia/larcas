@@ -2,10 +2,6 @@ package com.grush.larcas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Net;
-import com.badlogic.gdx.math.Rectangle;
-
-import java.util.Objects;
 
 public class GameLogic {
     public static GameLogic INSTANCE = new GameLogic();

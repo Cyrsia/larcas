@@ -4,8 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import java.util.Random;
-
 public class Larcas extends ApplicationAdapter {
 	SpriteBatch batch;
 	World world;
@@ -25,8 +23,8 @@ public class Larcas extends ApplicationAdapter {
 		ScreenUtils.clear(0, 0, 0, 0);
 		batch.begin();
 
-		GameLogic.INSTANCE.update();
 		WorldRend();
+		GameLogic.INSTANCE.update();
 		EntityRender();
 
 		batch.end();

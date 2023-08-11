@@ -1,30 +1,31 @@
 package com.grush.larcas;
 
 public class World {
-    static final public int sizeX = 20;
-    static final public int sizeY = 20;
+    static final public int sizeX = 200;
+    static final public int sizeY = 200;
 
     private final Chunk[][] data = new Chunk[sizeY][sizeX];
 
     public static World INSTANCE = new World();
+
+    IChunkFactory factory = new BasicChunkFactory();
 
     public int[] getSize(){
         return new int[]{sizeX*Chunk.sizeX, sizeY*Chunk.sizeY};
     }
 
     private World(){
-        for (int y = 0; y<sizeY; y++){
-            for (int x = 0; x<sizeX; x++){
-                this.data[y][x] = new Chunk(x, y);
-            }
-        }
         LogMaster.INSTANCE.log("new World");
     }
     public Chunk[][] getData(){
         return this.data;
     }
     public Chunk getChunk(int x, int y){
-        return data[y][x];
+        Chunk chunk = this.data[y][x];
+        if (chunk == null){
+            this.data[y][x] = factory.generateChunk(x, y);
+        }
+        return this.data[y][x];
     }
     public boolean isValidPosition(int x, int y) {
         return (x >= 0 && x < sizeX*Chunk.sizeX) && (y >= 0 && y < sizeY*Chunk.sizeY);

@@ -1,12 +1,7 @@
 package com.grush.larcas;
 
-import java.util.Random;
-
 public class GameStart {
     static boolean isStarted = false;
-    Random random = new Random();
-
-
     final static GameStart INSTANCE = new GameStart();
     public void start() {
         if (isStarted) {
@@ -19,6 +14,10 @@ public class GameStart {
     private void init(){
         LogMaster.INSTANCE.log("GameStart::init");
         World world = World.INSTANCE;
+        Player player = Player.PLAYER;
+        if (player.overlaps(player.coordinate.x, player.coordinate.y)) {
+            player.ghost = true;
+        }
         int[] size = world.getSize();
     }
 }

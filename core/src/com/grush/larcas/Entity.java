@@ -13,15 +13,23 @@ abstract class Entity {
     public MoveVector vector = new MoveVector(0,0,3f);
     float deceleration = 0.01f;
     float[] size;
+    boolean ghost = false;
+    boolean floating = false;
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states){
         this.coordinate = coordinate;
         this.states = states;
         EntityManager.INSTANCE.addEntity(this);
     }
+    public boolean isFloating(){
+        if (floating) return true;
+        if (ghost) return true;
+        return false;
+    }
     public Texture getTexture(){
         return null;
     }
     public boolean overlaps(float xn, float yn){
+        if (ghost) return false;
         for (int y = (int)yn - 1; y < (int)(yn + this.size[1] + 1); y++){
             for (int x = (int)xn - 1; x < (int)(xn + this.size[0] + 1); x++){
                 if (World.INSTANCE.getBlock(x, y).collides(this.coordinate, size)){
@@ -35,9 +43,12 @@ abstract class Entity {
     public void updateXAxis() {
         vector.decelerateAccelerationX(deceleration);
         coordinate.x += vector.dx * MOVEMENT_SPEED;
+        int counter = 0;
 
         if (overlaps(coordinate.x, coordinate.y)) {
             while (overlaps(coordinate.x, coordinate.y)) {
+                counter++;
+                if (counter > 500) this.ghost = true;
                 coordinate.x = prevX;
                 vector.decelerateAccelerationX(deceleration);
                 coordinate.x += vector.dx * MOVEMENT_SPEED;
@@ -48,11 +59,18 @@ abstract class Entity {
     }
 
     public void updateYAxis() {
-        vector.decelerateAccelerationY(deceleration);
+        if (isFloating()) {
+            vector.decelerateAccelerationY(deceleration);
+        } else {
+            vector.addY(-World.gravity);
+        }
         coordinate.y += vector.dy * MOVEMENT_SPEED;
+        int counter = 0;
 
         if (overlaps(coordinate.x, coordinate.y)) {
             while (overlaps(coordinate.x, coordinate.y)) {
+                counter++;
+                if (counter > 500) this.ghost = true;
                 coordinate.y = prevY;
                 vector.decelerateAccelerationY(deceleration);
                 coordinate.y += vector.dy * MOVEMENT_SPEED;

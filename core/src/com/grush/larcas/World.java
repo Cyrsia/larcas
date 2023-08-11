@@ -3,17 +3,22 @@ package com.grush.larcas;
 public class World {
     static final public int sizeX = 200;
     static final public int sizeY = 200;
-
     private final Chunk[][] data = new Chunk[sizeY][sizeX];
 
     public static World INSTANCE = new World();
-    IChunkFactory factory = new IChunkFactory(){};
+    public static float gravity = 0.03f;
+    IChunkFactory factory;
     public int[] getSize(){
         return new int[]{sizeX*Chunk.sizeX, sizeY*Chunk.sizeY};
     }
 
+    public void setChunkFactory(IChunkFactory factory){
+        this.factory = factory;
+    }
+
     private World(){
         LogMaster.INSTANCE.log("new World");
+        this.setChunkFactory(new PerlinChunkFactory());
     }
     public Chunk[][] getData(){
         return this.data;

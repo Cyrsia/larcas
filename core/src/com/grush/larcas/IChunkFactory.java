@@ -1,5 +1,7 @@
 package com.grush.larcas;
 
 public interface IChunkFactory {
-    Chunk generateChunk(int x, int y);
+     default Chunk generateChunk(int x, int y){
+         return new Chunk(x, y);
+     }
 }

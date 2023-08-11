@@ -7,9 +7,7 @@ public class World {
     private final Chunk[][] data = new Chunk[sizeY][sizeX];
 
     public static World INSTANCE = new World();
-
-    IChunkFactory factory = new BasicChunkFactory();
-
+    IChunkFactory factory = new IChunkFactory(){};
     public int[] getSize(){
         return new int[]{sizeX*Chunk.sizeX, sizeY*Chunk.sizeY};
     }

@@ -14,4 +14,9 @@ public class Bullet extends Entity{
     public Texture getTexture() {
         return TexMaster.INSTANCE.BulletTex;
     }
+
+    @Override
+    public void collision(){
+        this.kill();
+    }
 }

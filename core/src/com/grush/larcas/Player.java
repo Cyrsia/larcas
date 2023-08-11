@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class Player extends Entity {
     final public static Player PLAYER = new Player(new Coordinate<Float>((float) World.INSTANCE.getSize()[0]/2, (float) World.INSTANCE.getSize()[1]/2), new HashMap<>());
-    private static final float MOVEMENT_SPEED = 0.1f;
     float speed = 0.15f;
     Camera camera;
 

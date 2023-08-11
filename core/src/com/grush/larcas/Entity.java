@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Map;
 
-abstract class Entity {
+public abstract class Entity {
     Coordinate<Float> coordinate;
     Map<?, ?> states;
     boolean visible = true;
@@ -17,11 +17,13 @@ abstract class Entity {
     boolean forcedGhost = false;
     float restitution = 0.2f;
     boolean floating = false;
+    boolean spawned = false;
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states){
         this.coordinate = coordinate;
         this.states = states;
         prevX = coordinate.x;
         prevY = coordinate.y;
+        spawned = true;
     }
     public void spawn(){
         EntityManager.INSTANCE.addEntity(this);
@@ -70,6 +72,7 @@ abstract class Entity {
 
         if (overlaps(coordinate.x, coordinate.y)) {
             while (overlaps(coordinate.x, coordinate.y)) {
+                this.collision();
                 counter++;
                 if (counter > 500) this.forcedGhost = true;
                 coordinate.x = prevX;
@@ -88,7 +91,6 @@ abstract class Entity {
         return forcedGhost;
     }
 
-
     public void updateYAxis() {
         if (isFloating()) {
             vector.decelerateAccelerationY(deceleration);
@@ -99,6 +101,7 @@ abstract class Entity {
         int counter = 0;
 
         if (overlaps(coordinate.x, coordinate.y)) {
+            this.collision();
             while (overlaps(coordinate.x, coordinate.y)) {
                 counter++;
                 if (counter > 500) this.forcedGhost = true;
@@ -112,10 +115,14 @@ abstract class Entity {
             prevY = coordinate.y;
         }
     }
+    public void collision(){}
 
     public void update() {
         updateXAxis();
         updateYAxis();
     }
 
+    public void kill(){
+        EntityManager.INSTANCE.removeEntity(this);
+    }
 }

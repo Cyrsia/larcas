@@ -17,7 +17,9 @@ public abstract class Entity {
     boolean forcedGhost = false;
     float restitution = 0.2f;
     boolean floating = false;
-    boolean spawned = false;
+    boolean spawned;
+    boolean entityCollision = true;
+    boolean groupCollision = true;
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states){
         this.coordinate = coordinate;
         this.states = states;
@@ -124,5 +126,46 @@ public abstract class Entity {
 
     public void kill(){
         EntityManager.INSTANCE.removeEntity(this);
+    }
+
+    public double[] getCheckDistance(){
+        double[] res = new double[2];
+        res[0] = Math.sqrt(size[0]*size[0] + size[1]*size[1]);
+        res[1] = Math.min(size[0], size[1]);
+        return res;
+    }
+
+    public boolean entityOverlap(Coordinate<Float> entityCoordinate, float[] eSize){
+        float x1 = entityCoordinate.x;
+        float y1 = entityCoordinate.y;
+        return (x1 < (this.coordinate.x + this.size[0])) & ((x1 + eSize[0]) > this.coordinate.x) & (y1 < (this.coordinate.y + this.size[1])) & ((y1 + eSize[1]) > this.coordinate.y);
+    }
+
+    public void entityCollisionCheck(){
+        double[] checkDistance = getCheckDistance();
+        if (entityCollision){
+            for (Entity entity : EntityManager.INSTANCE.entities){
+                if (entity == this){
+                    continue;
+                }
+                float distance = GameLogic.getDistance(entity.coordinate, this.coordinate);
+                if (distance <= checkDistance[0]){
+                    if (distance <= checkDistance[1]){
+                        this.entityCollision(entity);
+                    } else if (entityOverlap(entity.coordinate, entity.size)){
+                        this.entityCollision(entity);
+                    }
+                }
+            }
+        }
+    }
+
+    public void entityCollision(Entity entity){
+        if (!groupCollision){
+            if (entity.getClass() == this.getClass()){
+                return;
+            }
+        }
+        LogMaster.INSTANCE.log("Entity + " + this.getClass().getName() + " meets " + entity.getClass().getName());
     }
 }

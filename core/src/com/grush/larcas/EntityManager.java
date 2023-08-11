@@ -1,7 +1,6 @@
 package com.grush.larcas;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class EntityManager {
@@ -20,6 +19,7 @@ public class EntityManager {
         ArrayList<Entity> deleted = new ArrayList<>();
         for (Entity entity : entities) {
             entity.update();
+            entity.entityCollisionCheck();
             if (!entity.spawned){
                 deleted.add(entity);
             }

@@ -15,7 +15,7 @@ abstract class Block {
     public boolean overlap(Coordinate<Float> coordinate, float w1, float h1){
         float x1 = coordinate.x;
         float y1 = coordinate.y;
-        return (x1 < (this.x + size[1])) & ((x1 + w1) > this.x) & (y1 < (this.y + size[0])) & ((y1 + h1) > this.y);
+        return (x1 < (this.x + size[0])) & ((x1 + w1) > this.x) & (y1 < (this.y + size[1])) & ((y1 + h1) > this.y);
     }
     public boolean collides(Coordinate<Float> coordinate, float[] size){
         if (!isSolid){

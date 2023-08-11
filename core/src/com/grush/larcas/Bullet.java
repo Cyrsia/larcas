@@ -8,6 +8,7 @@ public class Bullet extends Entity{
     public Bullet(Coordinate<Float> coordinate, Map<?, ?> states) {
         super(coordinate, states);
         this.size = new float[]{0.5f, 0.5f};
+        this.groupCollision = false;
     }
 
     @Override
@@ -17,6 +18,6 @@ public class Bullet extends Entity{
 
     @Override
     public void collision(){
-        this.kill();
+//        this.kill();
     }
 }

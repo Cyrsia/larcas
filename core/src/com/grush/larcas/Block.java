@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract class Block {
+public abstract class Block {
     int x;
     int y;
     public Map<String, String> states = new HashMap<>();

@@ -20,14 +20,15 @@ public abstract class Entity {
     boolean spawned;
     boolean entityCollision = true;
     boolean groupCollision = true;
+    private int hp;
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states){
         this.coordinate = coordinate;
         this.states = states;
-        prevX = coordinate.x;
-        prevY = coordinate.y;
         spawned = true;
     }
     public void spawn(){
+        prevX = coordinate.x;
+        prevY = coordinate.y;
         EntityManager.INSTANCE.addEntity(this);
     }
     public boolean isFloating(){
@@ -145,7 +146,7 @@ public abstract class Entity {
         double[] checkDistance = getCheckDistance();
         if (entityCollision){
             for (Entity entity : EntityManager.INSTANCE.entities){
-                if (entity == this){
+                if (entity == this || entity.getClass() == this.getClass()){
                     continue;
                 }
                 float distance = GameLogic.getDistance(entity.coordinate, this.coordinate);
@@ -161,11 +162,10 @@ public abstract class Entity {
     }
 
     public void entityCollision(Entity entity){
-        if (!groupCollision){
-            if (entity.getClass() == this.getClass()){
-                return;
-            }
-        }
-        LogMaster.INSTANCE.log("Entity + " + this.getClass().getName() + " meets " + entity.getClass().getName());
+        entity.collision();
+    }
+
+    public void reduceHp(Damage damage){
+        this.hp-=damage.damage;
     }
 }

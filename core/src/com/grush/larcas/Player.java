@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Entity {
-    final public static Player PLAYER = new Player(new Coordinate<Float>((float) World.INSTANCE.getSize()[0]/2, (float) World.INSTANCE.getSize()[1]/2), new HashMap<>());
+    final public static Player PLAYER = new Player(new Coordinate<>((float) World.INSTANCE.getSize()[0]/2, (float) World.INSTANCE.getSize()[1]/2), new HashMap<>());
     float speed = 0.15f;
     Camera camera;
 
@@ -31,15 +31,20 @@ public class Player extends Entity {
         }
     }
     public void spell(){
-        Entity bullet = new Bullet(new Coordinate<>(coordinate.x, coordinate.y), null);
-        float distance = GameLogic.getDistance(bullet.coordinate, camera.blockCoordinate);
-        float axisX = (camera.blockCoordinate.x - bullet.coordinate.x) / distance;
-        float axisY = (camera.blockCoordinate.y - bullet.coordinate.y) / distance;
+        Entity bullet = new Bullet(null, null);
+        float distance = GameLogic.getDistance(this.coordinate, camera.blockCoordinate);
+        float axisX = (camera.blockCoordinate.x - this.coordinate.x) / distance;
+        float axisY = (camera.blockCoordinate.y - this.coordinate.y) / distance;
+        bullet.coordinate = new Coordinate<>(this.coordinate.x + axisX*2, this.coordinate.y +axisY*2);
         bullet.vector = new MoveVector(axisX*10, axisY*10, 10f);
         bullet.spawn();
     }
     @Override
     public Texture getTexture() {
         return TexMaster.INSTANCE.TestTex;
+    }
+    @Override
+    public void reduceHp(Damage damage){
+        LogMaster.INSTANCE.log("reduceHp (Player)");
     }
 }

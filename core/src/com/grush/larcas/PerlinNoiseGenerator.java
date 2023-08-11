@@ -1,7 +1,4 @@
 package com.grush.larcas;
-
-import java.util.Random;
-
 public class PerlinNoiseGenerator {
     private final int width;
     private final int height;

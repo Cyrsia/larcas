@@ -22,8 +22,7 @@ abstract class Entity {
     }
     public boolean isFloating(){
         if (floating) return true;
-        if (ghost) return true;
-        return false;
+        return ghost;
     }
     public Texture getTexture(){
         return null;

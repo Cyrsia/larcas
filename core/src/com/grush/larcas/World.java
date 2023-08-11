@@ -20,9 +20,6 @@ public class World {
         LogMaster.INSTANCE.log("new World");
         this.setChunkFactory(new PerlinChunkFactory());
     }
-    public Chunk[][] getData(){
-        return this.data;
-    }
     public Chunk getChunk(int x, int y){
         Chunk chunk = this.data[y][x];
         if (chunk == null){

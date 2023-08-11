@@ -1,10 +1,9 @@
 package com.grush.larcas;
 
-public class MoveVector {
+public class MoveVector implements Cloneable{
     float dx;
     float dy;
     float max;
-
     boolean lockX = true;
     boolean lockY = true;
 
@@ -33,6 +32,11 @@ public class MoveVector {
         }
     }
 
+    public void transform(float value){
+        this.dx = value*this.dx;
+        this.dy = value*this.dy;
+    }
+
     public void decelerateAccelerationX(float speed){
         if (Math.abs(dx) > 0.01) this.dx -=(dx > 0 ? 1 : -1)*speed;
         else dx = 0;
@@ -42,5 +46,21 @@ public class MoveVector {
     public void decelerateAccelerationY(float speed){
         if (Math.abs(dy) > 0.01) this.dy -=(dy > 0 ? 1 : -1)*speed;
         else dy = 0;
+    }
+
+    @Override
+    public MoveVector clone() {
+        try {
+            @SuppressWarnings("unchecked")
+            MoveVector cloned = (MoveVector) super.clone();
+            cloned.dx = this.dx;
+            cloned.dy = this.dy;
+            cloned.max = this.max;
+            cloned.lockX = this.lockX;
+            cloned.lockY = this.lockY;
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError(e);
+        }
     }
 }

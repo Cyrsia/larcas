@@ -26,4 +26,11 @@ public class Bullet extends Projectile{
     public void collision(){
         this.kill();
     }
+
+    @Override
+    public void entityCollision(Entity entity){
+        super.entityCollision(entity);
+        entity.vector = this.vector.clone();
+        entity.vector.transform(0.2f);
+    }
 }

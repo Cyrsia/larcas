@@ -6,7 +6,7 @@ import com.badlogic.gdx.Input;
 public class Camera {
     Coordinate<Float> coordinate = new Coordinate<>(0f, 0f);
     public static Camera INSTANCE = new Camera();
-    public Coordinate<Integer> blockCoordinate = new Coordinate<>(0, 0);
+    public Coordinate<Float> blockCoordinate = new Coordinate<>(0f, 0f);
     private Camera(){}
     int blockX;
     int blockY;
@@ -26,8 +26,8 @@ public class Camera {
 
         blockX = (int) ((Gdx.input.getX() + coordinate.x) / blockSize); // Высчитываются координаты мышки по мерке мира игры
         blockY = (int) ((Gdx.graphics.getHeight() - Gdx.input.getY() + coordinate.y) / blockSize);
-        blockCoordinate.x = blockX;
-        blockCoordinate.y = blockY;
+        blockCoordinate.x = (float) blockX;
+        blockCoordinate.y = (float) blockY;
 
         updateP(Player.PLAYER.coordinate);
     }

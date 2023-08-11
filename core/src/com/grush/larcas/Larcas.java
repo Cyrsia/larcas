@@ -40,7 +40,7 @@ public class Larcas extends ApplicationAdapter {
 	}
 	public void EntityRender() {
 		for (Entity entity : EntityManager.INSTANCE.entities) {
-			if (entity.visible) {
+			if (entity.visible & GameLogic.getDistance(Player.PLAYER.coordinate, entity.coordinate) <= Camera.INSTANCE.renderDistance) {
 				batch.draw(
 					entity.getTexture(),
 					entity.coordinate.x*Camera.INSTANCE.blockSize - cameraPosition.x,

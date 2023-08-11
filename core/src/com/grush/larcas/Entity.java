@@ -15,6 +15,7 @@ abstract class Entity {
     float[] size;
     boolean ghost = false;
     boolean forcedGhost = false;
+    float restitution = 0.2f;
     boolean floating = false;
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states){
         this.coordinate = coordinate;
@@ -73,6 +74,8 @@ abstract class Entity {
                 if (counter > 500) this.forcedGhost = true;
                 coordinate.x = prevX;
                 vector.decelerateAccelerationX(deceleration);
+                vector.dx = (-vector.dx)*restitution;
+
                 coordinate.x += vector.dx * MOVEMENT_SPEED;
             }
         } else {
@@ -101,6 +104,8 @@ abstract class Entity {
                 if (counter > 500) this.forcedGhost = true;
                 coordinate.y = prevY;
                 vector.decelerateAccelerationY(deceleration);
+
+                vector.dy = (-vector.dy)*restitution;
                 coordinate.y += vector.dy * MOVEMENT_SPEED;
             }
         } else {

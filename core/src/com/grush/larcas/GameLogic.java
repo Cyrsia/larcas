@@ -19,7 +19,7 @@ public class GameLogic {
 		player = Player.PLAYER;
 	}
 
-	public static float getDistance(Coordinate<Float> a, Coordinate<Integer> b) {
+	public static float getDistance(Coordinate<Float> a, Coordinate<Float> b) {
 		float dx = a.x - b.x;
 		float dy = a.y - b.y;
 		return (float) Math.sqrt(dx * dx + dy * dy);
@@ -52,7 +52,7 @@ public class GameLogic {
 		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
 			player.vector.addY(-player.speed);
 		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
+		if (Gdx.input.isKeyPressed(Input.Keys.E)){
 			player.spell();
 		}
     }

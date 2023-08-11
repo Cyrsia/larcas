@@ -6,7 +6,7 @@ public class World {
     private final Chunk[][] data = new Chunk[sizeY][sizeX];
 
     public static World INSTANCE = new World();
-    public static float gravity = 0.03f;
+    public static float gravity = 0.1f;
     IChunkFactory factory;
     public int[] getSize(){
         return new int[]{sizeX*Chunk.sizeX, sizeY*Chunk.sizeY};
@@ -37,7 +37,7 @@ public class World {
         return y / Chunk.sizeY;
     }
     public Chunk getChunkByBlock(int x, int y){
-        return data[getChunkY(y)][getChunkX(x)];
+        return getChunk(getChunkX(x), getChunkY(y));
     }
     public Block getBlock(int x, int y){
         if (isValidPosition(x, y)){

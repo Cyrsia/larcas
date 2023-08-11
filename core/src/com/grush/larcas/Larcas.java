@@ -27,6 +27,8 @@ public class Larcas extends ApplicationAdapter {
 		GameLogic.INSTANCE.update();
 		EntityRender();
 
+		Camera.INSTANCE.update();
+
 		batch.end();
 	}
 	

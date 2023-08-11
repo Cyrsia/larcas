@@ -20,7 +20,7 @@ public abstract class Entity {
     boolean spawned;
     boolean entityCollision = true;
     boolean groupCollision = true;
-    private int hp;
+    public int hp;
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states){
         this.coordinate = coordinate;
         this.states = states;
@@ -123,16 +123,23 @@ public abstract class Entity {
     public void update() {
         updateXAxis();
         updateYAxis();
+        checkHp();
     }
 
     public void kill(){
         EntityManager.INSTANCE.removeEntity(this);
     }
 
-    public double[] getCheckDistance(){
+    public double[] getCheckDistance(float[] entitySize){
         double[] res = new double[2];
-        res[0] = Math.sqrt(size[0]*size[0] + size[1]*size[1]);
-        res[1] = Math.min(size[0], size[1]);
+        res[0] = Math.max(
+                    Math.sqrt(size[0]*size[0] + size[1]*size[1]),
+                    Math.sqrt(entitySize[0]*entitySize[0] + entitySize[1]*entitySize[1])
+        );
+        res[1] = Math.max(
+                    Math.min(size[0], size[1]),
+                    Math.min(entitySize[0], entitySize[1])
+                );
         return res;
     }
 
@@ -143,12 +150,12 @@ public abstract class Entity {
     }
 
     public void entityCollisionCheck(){
-        double[] checkDistance = getCheckDistance();
         if (entityCollision){
             for (Entity entity : EntityManager.INSTANCE.entities){
                 if (entity == this || entity.getClass() == this.getClass()){
                     continue;
                 }
+                double[] checkDistance = getCheckDistance(entity.size);
                 float distance = GameLogic.getDistance(entity.coordinate, this.coordinate);
                 if (distance <= checkDistance[0]){
                     if (distance <= checkDistance[1]){
@@ -167,5 +174,11 @@ public abstract class Entity {
 
     public void reduceHp(Damage damage){
         this.hp-=damage.damage;
+    }
+
+    public void checkHp(){
+        if (hp <= 0){
+            this.kill();
+        }
     }
 }

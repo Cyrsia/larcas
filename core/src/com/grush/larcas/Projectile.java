@@ -17,4 +17,7 @@ public abstract class Projectile extends Entity {
     public void entityCollision(Entity entity){
         this.hit(entity);
     }
+
+    @Override
+    public void checkHp(){}
 }

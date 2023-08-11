@@ -52,8 +52,12 @@ public class GameLogic {
 		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
 			player.vector.addY(-player.speed);
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.E)){
+		if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
 			player.spell();
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+			player.spell(1);
 		}
     }
 }

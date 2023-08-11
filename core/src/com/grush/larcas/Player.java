@@ -14,6 +14,7 @@ public class Player extends Entity {
         super(coordinate, states);
         this.size = new float[]{0.75f, 0.75f};
         camera = Camera.INSTANCE;
+        this.hp = 1000;
         this.spawn();
     }
 
@@ -38,6 +39,12 @@ public class Player extends Entity {
         bullet.coordinate = new Coordinate<>(this.coordinate.x + axisX*2, this.coordinate.y +axisY*2);
         bullet.vector = new MoveVector(axisX*10, axisY*10, 10f);
         bullet.spawn();
+    }
+
+    public void spell(int ID){
+        if (ID == 1){
+            new Dummy(camera.blockCoordinate.clone(), null).spawn();
+        }
     }
     @Override
     public Texture getTexture() {

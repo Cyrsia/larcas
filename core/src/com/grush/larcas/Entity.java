@@ -18,11 +18,12 @@ public abstract class Entity implements Renderable {
     boolean spawned;
     boolean entityCollision = true;
     boolean groupCollision = true;
+    IWorldChain worldChain;
     public int hp;
-    public Entity(Coordinate<Float> coordinate, Map<?, ?> states){
+    public Entity(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain){
         this.coordinate = coordinate;
         this.states = states;
-        spawned = true;
+        this.worldChain = worldChain;
     }
     public void spawn(){
         prevX = coordinate.x;
@@ -36,7 +37,7 @@ public abstract class Entity implements Renderable {
     public boolean overlapsRaw(float xn, float yn){ //не использует ghost-проверку
         for (int y = (int)yn - 1; y < (int)(yn + this.size[1] + 1); y++){
             for (int x = (int)xn - 1; x < (int)(xn + this.size[0] + 1); x++){
-                if (World.INSTANCE.getBlock(x, y).collides(this.coordinate, size)){
+                if (worldChain.getBlock(x, y).collides(this.coordinate, size)){
                     return true;
                 }
             }

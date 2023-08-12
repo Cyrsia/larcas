@@ -9,8 +9,8 @@ public class Dummy extends Entity{
     float timer = 0;
     boolean damagedOnce;
 
-    public Dummy(Coordinate<Float> coordinate, Map<?, ?> states) {
-        super(coordinate, states);
+    public Dummy(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain){
+        super(coordinate, states, worldChain);
         this.hp = 500;
         this.size = new float[]{1, 2};
     }

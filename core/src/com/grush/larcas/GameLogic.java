@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 
 public class GameLogic {
     public static GameLogic INSTANCE = new GameLogic();
-	World world;
+	IWorldChain world;
 	Coordinate<Float> cameraPosition;
 	float blockSize;
 	int blockX;
@@ -13,7 +13,7 @@ public class GameLogic {
 	Player player;
 
     private GameLogic(){
-		world = World.INSTANCE;
+		world = VarField.worldChain;
 		cameraPosition = Camera.INSTANCE.coordinate;
 		GameStart.INSTANCE.start();
 		player = Player.PLAYER;

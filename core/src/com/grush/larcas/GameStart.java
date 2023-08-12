@@ -13,7 +13,7 @@ public class GameStart {
 
     private void init(){
         LogMaster.INSTANCE.log("GameStart::init");
-        World world = World.INSTANCE;
+        IWorldChain world = VarField.worldChain;
         Player player = Player.PLAYER;
         if (player.overlaps(player.coordinate.x, player.coordinate.y)) {
             player.ghost = true;

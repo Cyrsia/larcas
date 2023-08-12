@@ -6,7 +6,9 @@ public class Chunk {
     static final public int sizeX = 10;
     static final public int sizeY = 10;
     private final Block[][] data;
-    public Chunk(int x, int y) {
+    public IWorldChain worldChain;
+    public Chunk(int x, int y, IWorldChain worldChain){
+        this.worldChain = worldChain;
         this.x = x;
         this.y = y;
         this.data = new Block[sizeY][sizeX];
@@ -28,7 +30,7 @@ public class Chunk {
         if (block != null){
             return block;
         } else {
-            return new VoidBlock(this.x*sizeX + x, this.y*sizeY + y);
+            return new VoidBlock(this.x*sizeX + x, this.y*sizeY + y, worldChain);
         }
     }
     public Block getBlock(int x, int y){

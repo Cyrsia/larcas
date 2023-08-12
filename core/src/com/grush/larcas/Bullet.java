@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class Bullet extends Projectile{
     static Damage damage = new Damage(50, EDamageType.BULLET);
-    public Bullet(Coordinate<Float> coordinate, Map<?, ?> states) {
-        super(coordinate, states);
+    public Bullet(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain) {
+        super(coordinate, states, worldChain);
         this.size = new float[]{0.5f, 0.5f};
         this.groupCollision = false;
     }

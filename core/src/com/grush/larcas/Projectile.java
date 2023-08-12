@@ -3,8 +3,8 @@ package com.grush.larcas;
 import java.util.Map;
 
 public abstract class Projectile extends Entity {
-    public Projectile(Coordinate<Float> coordinate, Map<?, ?> states) {
-        super(coordinate, states);
+    public Projectile(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain) {
+        super(coordinate, states, worldChain);
     }
 
     abstract Damage getDamage();

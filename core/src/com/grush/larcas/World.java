@@ -5,8 +5,9 @@ public class World {
     static final public int sizeY = 200;
     private final Chunk[][] data = new Chunk[sizeY][sizeX];
 
-    public static World INSTANCE = new World();
+    public static World INSTANCE_ = new World();
     public static float gravity = 0.1f;
+    IWorldChain worldChain;
     IChunkFactory factory;
     public int[] getSize(){
         return new int[]{sizeX*Chunk.sizeX, sizeY*Chunk.sizeY};
@@ -18,12 +19,14 @@ public class World {
 
     private World(){
         LogMaster.INSTANCE.log("new World");
+        VarField.worldChain = new LocalWorldChain(this);
+        worldChain = VarField.worldChain;
         this.setChunkFactory(new PerlinChunkFactory());
     }
     public Chunk getChunk(int x, int y){
         Chunk chunk = this.data[y][x];
         if (chunk == null){
-            this.data[y][x] = factory.generateChunk(x, y);
+            this.data[y][x] = factory.generateChunk(x, y, worldChain);
         }
         return this.data[y][x];
     }
@@ -44,7 +47,7 @@ public class World {
             Chunk chunk = this.getChunkByBlock(x, y);
             return chunk.getBlock(x%Chunk.sizeX, y%Chunk.sizeY);
         } else {
-            return new VoidBlock(x, y);
+            return new VoidBlock(x, y, worldChain);
         }
     }
     public Block setBlock(int x, int y, Class<? extends Block> blockType) {

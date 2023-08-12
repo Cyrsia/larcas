@@ -5,15 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.Map;
 
 public class StoneBlock extends Block {
-    StoneBlock(int x, int y) {
-        super(x, y);
+    StoneBlock(int x, int y, IWorldChain worldChain) {
+        super(x, y, worldChain);
         this.states.put("texture", "stone");
         this.updateState();
     }
     @Override
     public void updateState(){
-        boolean Up = World.INSTANCE.getBlock(this.x, this.y - 1) instanceof StoneBlock;
-        boolean Down = World.INSTANCE.getBlock(this.x, this.y + 1) instanceof StoneBlock;
+        boolean Up = worldChain.getBlock(this.x, this.y - 1) instanceof StoneBlock;
+        boolean Down = worldChain.getBlock(this.x, this.y + 1) instanceof StoneBlock;
 
         if (Up && Down){
             this.states.put("texture", "mid");
@@ -30,13 +30,13 @@ public class StoneBlock extends Block {
     }
     @Override
     public void hit() {
-        Block right = World.INSTANCE.getBlock(this.x + 1, this.y);
-        Block left = World.INSTANCE.getBlock(this.x - 1, this.y);
+        Block right = worldChain.getBlock(this.x + 1, this.y);
+        Block left = worldChain.getBlock(this.x - 1, this.y);
 
         if (right instanceof StoneBlock && left instanceof StoneBlock) {
             if (right.states.get("texture").equals("mid") && left.states.get("texture").equals("mid")) {
                 this.destroy();
-                World.INSTANCE.setBlock(this.x, this.y, BreakableBlock.class);
+                worldChain.setBlock(this.x, this.y, BreakableBlock.class);
             }
         }
     }

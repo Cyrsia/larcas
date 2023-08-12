@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Larcas extends ApplicationAdapter {
 	SpriteBatch batch;
-	World world;
+	IWorldChain world;
 	Coordinate<Float> cameraPosition;
 
 	@Override
@@ -14,7 +14,9 @@ public class Larcas extends ApplicationAdapter {
 		LogMaster.INSTANCE.log("create");
 		batch = new SpriteBatch();
 
-		world = World.INSTANCE;
+		LogMaster.INSTANCE.log(World.INSTANCE_);
+		world = VarField.worldChain;
+
 		cameraPosition = Camera.INSTANCE.coordinate;
 	}
 

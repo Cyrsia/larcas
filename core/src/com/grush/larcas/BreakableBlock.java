@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 public class BreakableBlock extends Block {
     private boolean isBroken = false;
 
-    public BreakableBlock(int x, int y) {
-        super(x, y);
+    public BreakableBlock(int x, int y, IWorldChain worldChain) {
+        super(x, y, worldChain);
     }
 
     @Override

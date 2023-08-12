@@ -9,6 +9,7 @@ public abstract class Block implements Renderable {
     public Map<String, String> states = new HashMap<>();
     boolean visible = true;
     boolean isSolid = true;
+    IWorldChain worldChain;
     public static float[] size = new float[]{1f, 1f};
     public boolean overlap(Coordinate<Float> coordinate, float w1, float h1){
         float x1 = coordinate.x;
@@ -22,9 +23,10 @@ public abstract class Block implements Renderable {
         return overlap(coordinate, size[0], size[1]);
     }
 
-    Block (int x, int y){
+    Block (int x, int y, IWorldChain worldChain){
         this.x = x;
         this.y = y;
+        this.worldChain = worldChain;
     }
 
     public int getUniqueState(int range){
@@ -37,11 +39,11 @@ public abstract class Block implements Renderable {
     public void updateState(){
     }
     public void spawn(){
-        World.INSTANCE.getBlock(this.x, this.y-1).updateState();
-        World.INSTANCE.getBlock(this.x, this.y+1).updateState();
+        worldChain.getBlock(this.x, this.y-1).updateState();
+        worldChain.getBlock(this.x, this.y+1).updateState();
     }
     public void despawn(){
-        World.INSTANCE.setBlock(this.x, this.y, VoidBlock.class);
+        worldChain.setBlock(this.x, this.y, VoidBlock.class);
     }
     public void destroy(){
         this.despawn();

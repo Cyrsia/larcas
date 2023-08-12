@@ -15,6 +15,7 @@ public class Player extends Entity {
         this.size = new float[]{0.75f, 0.75f};
         camera = Camera.INSTANCE;
         this.hp = 1000;
+        this.restitution = 0.75f;
         this.spawn();
     }
 

@@ -41,13 +41,11 @@ public class Larcas extends ApplicationAdapter {
 	public void EntityRender() {
 		for (Entity entity : EntityManager.INSTANCE.entities) {
 			if (entity.visible & GameLogic.getDistance(Player.PLAYER.coordinate, entity.coordinate) <= Camera.INSTANCE.renderDistance) {
-				batch.draw(
-					entity.getTexture(),
-					entity.coordinate.x*Camera.INSTANCE.blockSize - cameraPosition.x,
-					entity.coordinate.y*Camera.INSTANCE.blockSize - cameraPosition.y,
-					Camera.INSTANCE.blockSize*entity.size[0],
-					Camera.INSTANCE.blockSize*entity.size[1]
-				);
+				entity.draw(batch,
+						entity.coordinate.x*Camera.INSTANCE.blockSize - cameraPosition.x,
+						entity.coordinate.y*Camera.INSTANCE.blockSize - cameraPosition.y,
+						Camera.INSTANCE.blockSize*entity.size[0],
+						Camera.INSTANCE.blockSize*entity.size[1]);
 			}
 		}
 	}
@@ -65,13 +63,13 @@ public class Larcas extends ApplicationAdapter {
                     for (int chunkX = 0; chunkX < Chunk.sizeX; chunkX++) {
                         Block block = chunk[chunkY][chunkX];
                         if (block != null && block.visible) {
-                            batch.draw(
-                                    block.getTexture(),
+                            block.draw(batch,
                                     (x * Chunk.sizeX + chunkX) * Camera.INSTANCE.blockSize - cameraPosition.x,
                                     (y * Chunk.sizeY + chunkY) * Camera.INSTANCE.blockSize - cameraPosition.y,
                                     Camera.INSTANCE.blockSize,
                                     Camera.INSTANCE.blockSize
 							);
+
                         }
                     }
                 }

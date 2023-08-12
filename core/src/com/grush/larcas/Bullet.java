@@ -30,7 +30,9 @@ public class Bullet extends Projectile{
     @Override
     public void entityCollision(Entity entity){
         super.entityCollision(entity);
+        float max = entity.vector.max;
         entity.vector = this.vector.clone();
+        entity.vector.max = max;
         entity.vector.transform(0.2f);
     }
 }

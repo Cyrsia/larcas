@@ -1,10 +1,8 @@
 package com.grush.larcas;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import java.util.Map;
 
-public abstract class Entity {
+public abstract class Entity implements Renderable {
     Coordinate<Float> coordinate;
     Map<?, ?> states;
     boolean visible = true;
@@ -34,9 +32,6 @@ public abstract class Entity {
     public boolean isFloating(){
         if (floating) return true;
         return isGhost();
-    }
-    public Texture getTexture(){
-        return null;
     }
     public boolean overlapsRaw(float xn, float yn){ //не использует ghost-проверку
         for (int y = (int)yn - 1; y < (int)(yn + this.size[1] + 1); y++){
@@ -74,8 +69,8 @@ public abstract class Entity {
         int counter = 0;
 
         if (overlaps(coordinate.x, coordinate.y)) {
+            this.collision();
             while (overlaps(coordinate.x, coordinate.y)) {
-                this.collision();
                 counter++;
                 if (counter > 500) this.forcedGhost = true;
                 coordinate.x = prevX;

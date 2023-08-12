@@ -19,7 +19,7 @@ public class Camera {
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.J)){
-            if (this.blockSize >= 4){
+            if (this.blockSize >= 10){
                 this.blockSize-=0.1f;
             }
         }

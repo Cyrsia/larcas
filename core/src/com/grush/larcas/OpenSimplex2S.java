@@ -1,3 +1,5 @@
+// ---
+
 package com.grush.larcas;
 public class OpenSimplex2S {
 

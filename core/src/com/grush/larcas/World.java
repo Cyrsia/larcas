@@ -53,7 +53,7 @@ public class World {
     public Block setBlock(int x, int y, Class<? extends Block> blockType) {
         if (isValidPosition(x, y)) {
             try {
-                Block newBlock = blockType.getDeclaredConstructor(int.class, int.class).newInstance(x, y);
+                Block newBlock = blockType.getDeclaredConstructor(int.class, int.class, IWorldChain.class).newInstance(x, y, worldChain);
                 Chunk chunk = this.getChunkByBlock(x, y);
                 chunk.setBlock(x % Chunk.sizeX, y % Chunk.sizeY, newBlock);
                 newBlock.spawn();

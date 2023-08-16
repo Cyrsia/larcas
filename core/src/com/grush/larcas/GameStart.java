@@ -18,6 +18,5 @@ public class GameStart {
         if (player.overlaps(player.coordinate.x, player.coordinate.y)) {
             player.ghost = true;
         }
-        int[] size = world.getSize();
     }
 }

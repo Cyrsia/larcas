@@ -60,5 +60,7 @@ public class GameLogic {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
 			player.spell(1);
 		}
+
+		Camera.INSTANCE.update();
     }
 }

@@ -13,6 +13,7 @@ public class Larcas extends ApplicationAdapter {
 	public void create () {
 		LogMaster.INSTANCE.log("create");
 		LogMaster.INSTANCE.log(World.INSTANCE_);
+
 		batch = new SpriteBatch();
 
 		world = VarField.worldChain;
@@ -26,7 +27,6 @@ public class Larcas extends ApplicationAdapter {
 		batch.begin();
 
 		WorldRend();
-		Camera.INSTANCE.update();
 		EntityRender();
 
 		batch.end();

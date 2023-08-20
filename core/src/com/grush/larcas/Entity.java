@@ -21,6 +21,7 @@ public abstract class Entity implements Renderable {
     IWorldChain worldChain;
     public int hp;
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain){
+        LogMaster.INSTANCE.log("Entity " + this.getClass().getSimpleName());
         this.coordinate = coordinate;
         this.states = states;
         this.worldChain = worldChain;

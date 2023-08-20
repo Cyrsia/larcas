@@ -12,9 +12,9 @@ public class Larcas extends ApplicationAdapter {
 	@Override
 	public void create () {
 		LogMaster.INSTANCE.log("create");
+		LogMaster.INSTANCE.log(World.INSTANCE_);
 		batch = new SpriteBatch();
 
-		LogMaster.INSTANCE.log(World.INSTANCE_);
 		world = VarField.worldChain;
 
 		cameraPosition = Camera.INSTANCE.coordinate;
@@ -26,10 +26,8 @@ public class Larcas extends ApplicationAdapter {
 		batch.begin();
 
 		WorldRend();
-		GameLogic.INSTANCE.update();
-		EntityRender();
-
 		Camera.INSTANCE.update();
+		EntityRender();
 
 		batch.end();
 	}
@@ -38,6 +36,7 @@ public class Larcas extends ApplicationAdapter {
 	public void dispose () {
 		LogMaster.INSTANCE.log("dispose");
 		TexMaster.INSTANCE.disposeAll();
+		world.dispose();
 		batch.dispose();
 	}
 	public void EntityRender() {

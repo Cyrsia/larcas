@@ -13,6 +13,7 @@ public class GameLogic {
 	Player player;
 
     private GameLogic(){
+		LogMaster.INSTANCE.log("GameLogic");
 		world = VarField.worldChain;
 		cameraPosition = Camera.INSTANCE.coordinate;
 		GameStart.INSTANCE.start();

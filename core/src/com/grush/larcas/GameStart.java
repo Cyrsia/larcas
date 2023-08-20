@@ -7,6 +7,7 @@ public class GameStart {
         if (isStarted) {
             LogMaster.INSTANCE.log("What the fuck are you doing?");
         } else {
+            isStarted = true;
             this.init();
         }
     }

@@ -10,6 +10,6 @@ public interface IWorldChain {
     int getChunkX(int x);
     int getChunkY(int y);
     Chunk getChunk(int x, int y);
-
+    void dispose();
 }
 

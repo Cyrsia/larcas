@@ -3,6 +3,7 @@ package com.grush.larcas;
 public class PerlinChunkFactory implements IChunkFactory {
     PerlinNoiseGenerator noiseGenerator;
     public PerlinChunkFactory(){
+        LogMaster.INSTANCE.log("PerlinChunkFactory");
         noiseGenerator = new PerlinNoiseGenerator(Chunk.sizeX, Chunk.sizeY, 71);
     }
 

@@ -4,7 +4,6 @@ public class World {
     static final public int sizeX = 200;
     static final public int sizeY = 200;
     private final Chunk[][] data = new Chunk[sizeY][sizeX];
-
     public static World INSTANCE_ = new World();
     public static float gravity = 0.1f;
     IWorldChain worldChain;
@@ -14,6 +13,7 @@ public class World {
     }
 
     public void setChunkFactory(IChunkFactory factory){
+        LogMaster.INSTANCE.log("setChunkFactory");
         this.factory = factory;
     }
 

@@ -11,7 +11,7 @@ public class Camera {
     int blockX;
     int blockY;
     public float blockSize = 20;
-    public final int renderDistance = 50;
+    public final int renderDistance = 100;
     public void update(){
         if (Gdx.input.isKeyPressed(Input.Keys.U)){
             if (this.blockSize <= 32){
@@ -29,11 +29,11 @@ public class Camera {
         blockCoordinate.x = (float) blockX;
         blockCoordinate.y = (float) blockY;
 
-        updateP(Player.PLAYER.coordinate);
+        updateP(Player.PLAYER.coordinate.x, Player.PLAYER.coordinate.y, Player.PLAYER.size);
     }
 
-    public void updateP(Coordinate<Float> player){
-        this.coordinate.x = (player.x+Player.PLAYER.size[0]/2 - 0.5f*Gdx.graphics.getWidth()/blockSize) * blockSize;
-        this.coordinate.y = (player.y+Player.PLAYER.size[1]/2 - 0.5f*Gdx.graphics.getHeight()/blockSize) * blockSize;
+    public void updateP(float x, float y, float[] size){
+        this.coordinate.x = (x+size[0]/2 - 0.5f*Gdx.graphics.getWidth()/blockSize) * blockSize;
+        this.coordinate.y = (y+size[1]/2 - 0.5f*Gdx.graphics.getHeight()/blockSize) * blockSize;
     }
 }

@@ -1,10 +1,10 @@
 package com.grush.larcas;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.List;
 
 public class EntityManager {
-    final public List<Entity> entities = new ArrayList<>();
+    final public List<Entity> entities = new CopyOnWriteArrayList<>();
     public static EntityManager INSTANCE = new EntityManager();
 
     public void addEntity(Entity entity) {
@@ -16,7 +16,7 @@ public class EntityManager {
         entity.spawned = false;
     }
     public void updateAll() {
-        ArrayList<Entity> deleted = new ArrayList<>();
+        CopyOnWriteArrayList<Entity> deleted = new CopyOnWriteArrayList<>();
         for (Entity entity : entities) {
             entity.update();
             entity.entityCollisionCheck();

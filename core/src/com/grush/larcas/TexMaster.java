@@ -8,6 +8,7 @@ public class TexMaster {
     public final Texture BulletTex = new Texture("entities/bullet.png");
     public final Texture DummyTex = new Texture("entities/dummy.png");
     public final Texture DummyHurtTex = new Texture("entities/dummy_hurt.png");
+    public final Texture JumpingDummyTex = new Texture("entities/dummy_jumping.png");
 
     public final Texture StoneBlockTex = new Texture("blocks/stone.png");
     public final Texture BrokenBlockTex = new Texture("blocks/broken.png");
@@ -19,6 +20,7 @@ public class TexMaster {
         BulletTex.dispose();
         DummyTex.dispose();
         DummyHurtTex.dispose();
+        JumpingDummyTex.dispose();
 
         BrokenBlockTex.dispose();
         BreakableBlockTex.dispose();

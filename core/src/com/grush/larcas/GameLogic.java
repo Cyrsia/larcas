@@ -47,20 +47,18 @@ public class GameLogic {
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 			player.vector.addX(-player.speed);
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-			player.vector.addY(player.speed);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-			player.vector.addY(-player.speed);
-		}
 		if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
 			player.spell();
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+			player.jump();
 		}
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
 			player.spell(1);
 		}
-
-		Camera.INSTANCE.update();
+		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
+			player.spell(2);
+		}
     }
 }

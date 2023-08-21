@@ -16,6 +16,7 @@ public class Player extends Entity {
         this.size = new float[]{0.75f, 0.75f};
         camera = Camera.INSTANCE;
         this.hp = 1000;
+        this.jump = 10;
         this.spawn();
     }
 
@@ -45,6 +46,8 @@ public class Player extends Entity {
     public void spell(int ID){
         if (ID == 1){
             new Dummy(camera.blockCoordinate.clone(), null, worldChain).spawn();
+        } else if (ID == 2){
+            new JumpingDummy(camera.blockCoordinate.clone(), null, worldChain).spawn();
         }
     }
     @Override

@@ -26,6 +26,7 @@ public class Larcas extends ApplicationAdapter {
 		ScreenUtils.clear(0, 0, 0, 0);
 		batch.begin();
 
+		Camera.INSTANCE.update();
 		WorldRend();
 		EntityRender();
 
@@ -40,6 +41,7 @@ public class Larcas extends ApplicationAdapter {
 		batch.dispose();
 	}
 	public void EntityRender() {
+		Camera.INSTANCE.updateP(Player.PLAYER.coordinate.x, Player.PLAYER.coordinate.y, Player.PLAYER.size);
 		for (Entity entity : EntityManager.INSTANCE.entities) {
 			if (entity.visible & GameLogic.getDistance(Player.PLAYER.coordinate, entity.coordinate) <= Camera.INSTANCE.renderDistance) {
 				entity.draw(batch,
@@ -65,8 +67,8 @@ public class Larcas extends ApplicationAdapter {
                         Block block = chunk[chunkY][chunkX];
                         if (block != null && block.visible) {
                             block.draw(batch,
-                                    (x * Chunk.sizeX + chunkX) * Camera.INSTANCE.blockSize - cameraPosition.x,
-                                    (y * Chunk.sizeY + chunkY) * Camera.INSTANCE.blockSize - cameraPosition.y,
+									((float)(x * Chunk.sizeX + chunkX)) * Camera.INSTANCE.blockSize - cameraPosition.x,
+                                    ((float)(y * Chunk.sizeY + chunkY)) * Camera.INSTANCE.blockSize - cameraPosition.y,
                                     Camera.INSTANCE.blockSize,
                                     Camera.INSTANCE.blockSize
 							);

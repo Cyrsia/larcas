@@ -20,8 +20,9 @@ public abstract class Entity implements Renderable {
     boolean groupCollision = true;
     IWorldChain worldChain;
     public int hp;
+    public float jump = 2;
+    boolean canJump = true;
     public Entity(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain){
-        LogMaster.INSTANCE.log("Entity " + this.getClass().getSimpleName());
         this.coordinate = coordinate;
         this.states = states;
         this.worldChain = worldChain;
@@ -71,7 +72,7 @@ public abstract class Entity implements Renderable {
         int counter = 0;
 
         if (overlaps(coordinate.x, coordinate.y)) {
-            this.collision();
+            this.collision("x");
             while (overlaps(coordinate.x, coordinate.y)) {
                 counter++;
                 if (counter > 500) this.forcedGhost = true;
@@ -101,7 +102,7 @@ public abstract class Entity implements Renderable {
         int counter = 0;
 
         if (overlaps(coordinate.x, coordinate.y)) {
-            this.collision();
+            this.collision("y");
             while (overlaps(coordinate.x, coordinate.y)) {
                 counter++;
                 if (counter > 500) this.forcedGhost = true;
@@ -115,13 +116,21 @@ public abstract class Entity implements Renderable {
             prevY = coordinate.y;
         }
     }
-    public void collision(){}
+    public void collision(String data){
+        if (data.equals("y")){
+            canJump = true;
+        } else if (data.equals("x")){
+            vector.addY(World.gravity);
+            canJump = true;
+        }
+    }
 
     public void update() {
         updateXAxis();
         updateYAxis();
         checkHp();
     }
+
 
     public void kill(){
         EntityManager.INSTANCE.removeEntity(this);
@@ -166,7 +175,7 @@ public abstract class Entity implements Renderable {
     }
 
     public void entityCollision(Entity entity){
-        entity.collision();
+        entity.collision(entity.getClass().getSimpleName());
     }
 
     public void reduceHp(Damage damage){
@@ -176,6 +185,13 @@ public abstract class Entity implements Renderable {
     public void checkHp(){
         if (hp <= 0){
             this.kill();
+        }
+    }
+
+    public void jump(){
+        if (canJump) {
+            vector.addY(this.jump);
+            canJump = false;
         }
     }
 }

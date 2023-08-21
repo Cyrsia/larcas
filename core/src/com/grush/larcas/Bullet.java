@@ -23,7 +23,7 @@ public class Bullet extends Projectile{
     }
 
     @Override
-    public void collision(){
+    public void collision(String data){
         this.kill();
     }
 

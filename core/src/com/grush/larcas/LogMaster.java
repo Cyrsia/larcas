@@ -6,5 +6,11 @@ public class LogMaster {
         System.out.print(message);
         System.out.print("\n");
     }
+
+    public <T> void error(T message){
+        System.out.print("[ERROR] ");
+        System.out.print(message);
+        System.out.print("\n");
+    }
     private LogMaster(){}
 }

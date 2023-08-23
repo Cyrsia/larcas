@@ -12,11 +12,23 @@ public class Larcas extends ApplicationAdapter {
 	@Override
 	public void create () {
 		LogMaster.INSTANCE.log("create");
-		LogMaster.INSTANCE.log(World.INSTANCE_);
+//		LogMaster.INSTANCE.log(World.INSTANCE_);
 
 		batch = new SpriteBatch();
 
 		world = VarField.worldChain;
+
+		while (world.getSize() == null){
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				LogMaster.INSTANCE.error(e);
+			}
+		}
+
+		LogMaster.INSTANCE.log(GameLogic.INSTANCE);
+
+		VarField.actionHost.spawn(Player.PLAYER);
 
 		cameraPosition = Camera.INSTANCE.coordinate;
 	}

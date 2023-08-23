@@ -1,48 +1,35 @@
 package com.grush.larcas.server;
 
-import com.grush.larcas.Block;
-import com.grush.larcas.Chunk;
-import com.grush.larcas.EntityManager;
-import com.grush.larcas.IWorldChain;
+import com.grush.larcas.*;
 
-public class ServerWorldChain implements IWorldChain {
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-    @Override
-    public Block getBlock(int x, int y) {
-        return null;
+public class ServerWorldChain extends LocalWorldChain {
+    int port;
+    World world;
+    public ServerWorldChain(World world, int port) {
+        super(world);
+        this.world = world;
+        this.port = port;
+        ServerVarField.worldChain = this;
+        world.setWorldChain(this);
     }
 
-    @Override
-    public Block setBlock(int x, int y, Class<? extends Block> blockType) {
-        return null;
-    }
+    public void start(){
+        new Thread(() -> {
+            try (ServerSocket serverSocket = new ServerSocket(port)){
+                LogMaster.INSTANCE.log("Server started");
+                while (true) {
+                    Socket clientSocket = serverSocket.accept();
 
-    @Override
-    public int[] getSize() {
-        return new int[0];
-    }
-
-    @Override
-    public int getChunkX(int x) {
-        return 0;
-    }
-
-    @Override
-    public int getChunkY(int y) {
-        return 0;
-    }
-
-    @Override
-    public Chunk getChunk(int x, int y) {
-        return null;
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-    @Override
-    public EntityManager getEntityManager() {
-        return null;
+                    Thread clientThread = new Thread(new ClientHandler(clientSocket));
+                    clientThread.start();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 }

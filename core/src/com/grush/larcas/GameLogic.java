@@ -12,7 +12,7 @@ public class GameLogic {
 	int blockY;
 	Player player;
 
-    private GameLogic(){
+    protected GameLogic(){
 		LogMaster.INSTANCE.log("GameLogic");
 		world = VarField.worldChain;
 		cameraPosition = Camera.INSTANCE.coordinate;

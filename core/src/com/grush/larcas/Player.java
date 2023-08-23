@@ -13,11 +13,11 @@ public class Player extends Entity {
 
     private Player(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain) {
         super(coordinate, states, worldChain);
+        LogMaster.INSTANCE.log("Player");
         this.size = new float[]{0.75f, 0.75f};
         camera = Camera.INSTANCE;
         this.hp = 1000;
         this.jump = 10;
-        this.spawn();
     }
     @Override
     public void interact() {

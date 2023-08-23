@@ -17,6 +17,6 @@ public class Action {
         this.actionNum = actionNum;
     }
     public void execute(){
-        ActionHost.INSTANCE.execute(this);
+        VarField.actionHost.execute(this);
     }
 }

@@ -1,5 +1,7 @@
 package com.grush.larcas;
 
+import com.grush.larcas.server.LocalWorldChain;
+
 public class World {
     static final public int sizeX = 200;
     static final public int sizeY = 200;
@@ -19,10 +21,13 @@ public class World {
 
     private World(){
         LogMaster.INSTANCE.log("new World");
-        VarField.worldChain = new LocalWorldChain(this);
-        worldChain = VarField.worldChain;
         this.setChunkFactory(new PerlinChunkFactory());
     }
+
+    public void setWorldChain(IWorldChain worldChain) {
+        this.worldChain = worldChain;
+    }
+
     public Chunk getChunk(int x, int y){
         Chunk chunk = this.data[y][x];
         if (chunk == null){

@@ -1,8 +1,8 @@
 package com.grush.larcas;
 
 public class Chunk {
-    final int x;
-    final int y;
+    public final int x;
+    public final int y;
     static final public int sizeX = 10;
     static final public int sizeY = 10;
     private final Block[][] data;

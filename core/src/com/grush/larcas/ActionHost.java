@@ -1,12 +1,26 @@
 package com.grush.larcas;
 
 public class ActionHost {
-    private ActionHost(){
-
+    public void jump(Entity entity){
+        entity.jump();
     }
-    public static final ActionHost INSTANCE = new ActionHost();
-
-    public void execute(Action action){
+    public void spell(Entity entity, int ID){
+        entity.spell(ID);
+    }
+    public void hit(Entity entity){
+        entity.hit();
+    }
+    public void interact(Entity entity){
+        entity.interact();
+    }
+    public void spawn(Entity entity){
+        entity.spawn();
+    }
+    public void kill(Entity entity){
+        entity.kill();
+    }
+    public final void execute(Action action){
+        LogMaster.INSTANCE.log(action.entityActionType);
         switch (action.type){
             case WorldAction:{
                 break;
@@ -14,27 +28,27 @@ public class ActionHost {
             case EntityAction:{
                 switch (action.entityActionType){
                     case JUMP:{
-                        action.entity.jump();
+                        jump(action.entity);
                         break;
                     }
                     case SPELL:{
-                        action.entity.spell(action.actionNum);
+                        spell(action.entity, action.actionNum);
                         break;
                     }
                     case HIT:{
-                        action.entity.hit();
+                        hit(action.entity);
                         break;
                     }
                     case INTERACT:{
-                        action.entity.interact();
+                        interact(action.entity);
                         break;
                     }
                     case SPAWN:{
-                        action.entity.spawn();
+                        spawn(action.entity);
                         break;
                     }
                     case KILL:{
-                        action.entity.kill();
+                        kill(action.entity);
                         break;
                     }
                 }

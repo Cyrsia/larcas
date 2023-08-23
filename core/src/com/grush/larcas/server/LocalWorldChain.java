@@ -1,13 +1,14 @@
-package com.grush.larcas;
+package com.grush.larcas.server;
+
+import com.grush.larcas.*;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class LocalWorldChain implements IWorldChain {
-    private final World world;
+    public final World world;
     private ScheduledExecutorService executorService;
-
     final EntityManager entityManager;
     public LocalWorldChain(World world) {
         this.world = world;
@@ -15,7 +16,6 @@ public class LocalWorldChain implements IWorldChain {
         entityManager = new EntityManager();
         initializeUpdater();
     }
-
     @Override
     public Block getBlock(int x, int y) {
         return world.getBlock(x, y);
@@ -54,7 +54,7 @@ public class LocalWorldChain implements IWorldChain {
     }
 
     private void updateGameLogic() {
-        GameLogic.INSTANCE.update();
+        ServerLogic.INSTANCE.update();
     }
     public void dispose() {
         if (!executorService.isShutdown()){

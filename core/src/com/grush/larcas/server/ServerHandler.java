@@ -72,7 +72,7 @@ public class ServerHandler {
                             chunk.setBlock(
                                     x,
                                     y,
-                                    new BreakableBlock(chunk.x*world.getSize()[0] + x, chunk.y*world.getSize()[1] + y, world)
+                                    new BreakableBlock(chunk.x*Chunk.sizeX + x, chunk.y*Chunk.sizeY + y, world)
                             );
                         }
                         i++;

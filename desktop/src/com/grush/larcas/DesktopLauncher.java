@@ -14,5 +14,10 @@ public class DesktopLauncher {
 		serverWorldChain.start();
 
 		new Lwjgl3Application(new Larcas(), config);
+
+		serverWorldChain.dispose();
+		serverWorldChain.running = false;
+
+		System.exit(0);
 	}
 }

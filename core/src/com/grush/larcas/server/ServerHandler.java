@@ -20,7 +20,6 @@ public class ServerHandler {
     PrintWriter writer;
     Thread Receiver;
     ClientWorldChain world;
-    boolean wait = false;
     public ServerHandler(String host, int port, ClientWorldChain world) {
         this.host = host;
         this.port = port;
@@ -87,6 +86,7 @@ public class ServerHandler {
 
     public void dispose(){
         try {
+            writer.println("bye");
             reader.close();
             writer.close();
             socket.close();

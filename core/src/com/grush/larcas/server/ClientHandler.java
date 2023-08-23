@@ -15,7 +15,6 @@ class ClientHandler implements Runnable {
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
-    boolean wait = false;
 
     @Override
     public void run() {

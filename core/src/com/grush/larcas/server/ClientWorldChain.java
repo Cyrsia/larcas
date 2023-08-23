@@ -61,6 +61,7 @@ public class ClientWorldChain implements IWorldChain {
 
     @Override
     public void dispose() {
+        LogMaster.INSTANCE.log("dispose ClientWorldChain");
         serverHandler.dispose();
     }
 

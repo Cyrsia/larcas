@@ -9,6 +9,8 @@ import java.net.Socket;
 public class ServerWorldChain extends LocalWorldChain {
     int port;
     World world;
+    Thread server;
+    public boolean running;
     public ServerWorldChain(World world, int port) {
         super(world);
         this.world = world;
@@ -18,10 +20,11 @@ public class ServerWorldChain extends LocalWorldChain {
     }
 
     public void start(){
-        new Thread(() -> {
+        running = true;
+        server = new Thread(() -> {
             try (ServerSocket serverSocket = new ServerSocket(port)){
                 LogMaster.INSTANCE.log("Server started");
-                while (true) {
+                while (running) {
                     Socket clientSocket = serverSocket.accept();
 
                     Thread clientThread = new Thread(new ClientHandler(clientSocket));
@@ -30,6 +33,13 @@ public class ServerWorldChain extends LocalWorldChain {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }).start();
+        });
+        server.start();
+    }
+
+    public void dispose(){
+        super.dispose();
+        LogMaster.INSTANCE.log("Server stopped");
+        server.interrupt();
     }
 }

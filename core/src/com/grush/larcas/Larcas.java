@@ -27,7 +27,7 @@ public class Larcas extends ApplicationAdapter {
 		batch.begin();
 
 		Camera.INSTANCE.update();
-		WorldRend();
+		WorldRender();
 		EntityRender();
 
 		batch.end();
@@ -42,7 +42,7 @@ public class Larcas extends ApplicationAdapter {
 	}
 	public void EntityRender() {
 		Camera.INSTANCE.updateP(Player.PLAYER.coordinate.x, Player.PLAYER.coordinate.y, Player.PLAYER.size);
-		for (Entity entity : EntityManager.INSTANCE.entities) {
+		for (Entity entity : world.getEntityManager().entities) {
 			if (entity.visible & GameLogic.getDistance(Player.PLAYER.coordinate, entity.coordinate) <= Camera.INSTANCE.renderDistance) {
 				entity.draw(batch,
 						entity.coordinate.x*Camera.INSTANCE.blockSize - cameraPosition.x,
@@ -53,7 +53,7 @@ public class Larcas extends ApplicationAdapter {
 		}
 	}
 
-	public void WorldRend() {
+	public void WorldRender() {
 		int minXChunk = Math.max(0, world.getChunkX(Player.PLAYER.coordinate.x.intValue() - Camera.INSTANCE.renderDistance));
 		int maxXChunk = Math.min(World.sizeX, world.getChunkX(Player.PLAYER.coordinate.x.intValue() + Camera.INSTANCE.renderDistance));
 		int minYChunk = Math.max(0, world.getChunkY(Player.PLAYER.coordinate.y.intValue() - Camera.INSTANCE.renderDistance));

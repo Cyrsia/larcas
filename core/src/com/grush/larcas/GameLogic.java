@@ -33,13 +33,7 @@ public class GameLogic {
 		blockX = (int) ((Gdx.input.getX() + cameraPosition.x) / blockSize); // Высчитываются координаты мышки по мерке мира игры
         blockY = (int) ((Gdx.graphics.getHeight() - Gdx.input.getY() + cameraPosition.y) / blockSize);
 
-		EntityManager.INSTANCE.updateAll();
-
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-			player.hit();
-		} else if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
-			player.interact();
-		}
+		world.getEntityManager().updateAll();
 
 		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 			player.vector.addX(player.speed);
@@ -47,18 +41,33 @@ public class GameLogic {
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 			player.vector.addX(-player.speed);
 		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
-			player.spell();
-		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-			player.jump();
+		if (!player.isFloating()) {
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+				new Action(EAction.EntityAction, EAction.EEntityAction.JUMP, player).execute();
+			}
+		} else {
+			if (Gdx.input.isKeyPressed(Input.Keys.W)){
+				player.vector.addY(player.speed);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.S)){
+				player.vector.addY(-player.speed);
+			}
 		}
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
-			player.spell(1);
+			new Action(EAction.EntityAction, EAction.EEntityAction.SPELL, player, 1).execute();
 		}
 		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
-			player.spell(2);
+			new Action(EAction.EntityAction, EAction.EEntityAction.SPELL, player, 2).execute();
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
+			new Action(EAction.EntityAction, EAction.EEntityAction.SPELL, player, 3).execute();
+		}
+
+		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+			new Action(EAction.EntityAction, EAction.EEntityAction.HIT, player).execute();
+		} else if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
+			new Action(EAction.EntityAction, EAction.EEntityAction.INTERACT, player).execute();
 		}
     }
 }

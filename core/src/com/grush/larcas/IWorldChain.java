@@ -1,7 +1,6 @@
 package com.grush.larcas;
 
 public interface IWorldChain {
-    World getWorld();
 
     Block getBlock(int x, int y);
     Block setBlock(int x, int y, Class<? extends Block> blockType);
@@ -11,5 +10,6 @@ public interface IWorldChain {
     int getChunkY(int y);
     Chunk getChunk(int x, int y);
     void dispose();
+    EntityManager getEntityManager();
 }
 

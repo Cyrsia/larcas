@@ -29,10 +29,6 @@ public abstract class Block implements Renderable {
         this.worldChain = worldChain;
     }
 
-    public int getUniqueState(int range){
-        return this.hashCode() % range;
-    }
-
     public void hit(){
     }
 

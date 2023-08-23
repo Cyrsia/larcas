@@ -7,14 +7,13 @@ import java.util.concurrent.TimeUnit;
 public class LocalWorldChain implements IWorldChain {
     private final World world;
     private ScheduledExecutorService executorService;
+
+    final EntityManager entityManager;
     public LocalWorldChain(World world) {
         this.world = world;
+        LogMaster.INSTANCE.log("LocalWorldChain");
+        entityManager = new EntityManager();
         initializeUpdater();
-    }
-
-    @Override
-    public World getWorld() {
-        return world;
     }
 
     @Override
@@ -48,10 +47,10 @@ public class LocalWorldChain implements IWorldChain {
     }
 
     private void initializeUpdater() {
-        executorService = Executors.newScheduledThreadPool(2);
+        executorService = Executors.newScheduledThreadPool(1);
 
         long periodMillis = 1000 / 60;
-        executorService.scheduleAtFixedRate(this::updateGameLogic, 0, periodMillis, TimeUnit.MILLISECONDS);
+        executorService.scheduleAtFixedRate(this::updateGameLogic, 100, periodMillis, TimeUnit.MILLISECONDS);
     }
 
     private void updateGameLogic() {
@@ -61,5 +60,10 @@ public class LocalWorldChain implements IWorldChain {
         if (!executorService.isShutdown()){
             executorService.shutdown();
         }
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }

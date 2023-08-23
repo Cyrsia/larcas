@@ -30,8 +30,13 @@ public abstract class Entity implements Renderable {
     public void spawn(){
         prevX = coordinate.x;
         prevY = coordinate.y;
-        EntityManager.INSTANCE.addEntity(this);
+        worldChain.getEntityManager().addEntity(this);
     }
+    public void hit(){
+    }
+    public void interact(){
+    }
+    public void spell(int ID){}
     public boolean isFloating(){
         if (floating) return true;
         return isGhost();
@@ -120,8 +125,8 @@ public abstract class Entity implements Renderable {
         if (data.equals("y")){
             canJump = true;
         } else if (data.equals("x")){
-            vector.addY(World.gravity);
-            canJump = true;
+//            vector.addY(World.gravity);
+//            canJump = true;
         }
     }
 
@@ -133,7 +138,7 @@ public abstract class Entity implements Renderable {
 
 
     public void kill(){
-        EntityManager.INSTANCE.removeEntity(this);
+        worldChain.getEntityManager().removeEntity(this);
     }
 
     public double[] getCheckDistance(float[] entitySize){
@@ -157,7 +162,7 @@ public abstract class Entity implements Renderable {
 
     public void entityCollisionCheck(){
         if (entityCollision){
-            for (Entity entity : EntityManager.INSTANCE.entities){
+            for (Entity entity : worldChain.getEntityManager().entities){
                 if (entity == this || entity.getClass() == this.getClass()){
                     continue;
                 }

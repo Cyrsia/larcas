@@ -19,7 +19,7 @@ public class Player extends Entity {
         this.jump = 10;
         this.spawn();
     }
-
+    @Override
     public void interact() {
         if (GameLogic.getDistance(coordinate, Camera.INSTANCE.blockCoordinate) < interactionRange) {
             Block blockToInteract = worldChain.getBlock(camera.blockX, camera.blockY);
@@ -27,27 +27,27 @@ public class Player extends Entity {
         }
 
     }
+    @Override
     public void hit() {
         if (GameLogic.getDistance(coordinate, camera.blockCoordinate) < interactionRange) {
             Block blockToHit = worldChain.getBlock(camera.blockX, camera.blockY);
             blockToHit.hit();
         }
     }
-    public void spell(){
-        Entity bullet = new Bullet(null, null, worldChain);
-        float distance = GameLogic.getDistance(this.coordinate, camera.blockCoordinate);
-        float axisX = (camera.blockCoordinate.x - this.coordinate.x) / distance;
-        float axisY = (camera.blockCoordinate.y - this.coordinate.y) / distance;
-        bullet.coordinate = new Coordinate<>(this.coordinate.x + axisX*2, this.coordinate.y +axisY*2);
-        bullet.vector = new MoveVector(axisX*10, axisY*10, 10f);
-        bullet.spawn();
-    }
-
+    @Override
     public void spell(int ID){
         if (ID == 1){
             new Dummy(camera.blockCoordinate.clone(), null, worldChain).spawn();
         } else if (ID == 2){
             new JumpingDummy(camera.blockCoordinate.clone(), null, worldChain).spawn();
+        } else if (ID == 3) {
+            Entity bullet = new Bullet(null, null, worldChain);
+            float distance = GameLogic.getDistance(this.coordinate, camera.blockCoordinate);
+            float axisX = (camera.blockCoordinate.x - this.coordinate.x) / distance;
+            float axisY = (camera.blockCoordinate.y - this.coordinate.y) / distance;
+            bullet.coordinate = new Coordinate<>(this.coordinate.x + axisX * 2, this.coordinate.y + axisY * 2);
+            bullet.vector = new MoveVector(axisX * 10, axisY * 10, 10f);
+            bullet.spawn();
         }
     }
     @Override

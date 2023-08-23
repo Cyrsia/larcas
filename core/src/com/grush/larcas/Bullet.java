@@ -24,7 +24,7 @@ public class Bullet extends Projectile{
 
     @Override
     public void collision(String data){
-        this.kill();
+        new Action(EAction.EntityAction, EAction.EEntityAction.KILL, this).execute();
     }
 
     @Override

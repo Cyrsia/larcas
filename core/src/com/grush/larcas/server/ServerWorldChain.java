@@ -5,12 +5,14 @@ import com.grush.larcas.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ServerWorldChain extends LocalWorldChain {
     int port;
     World world;
     Thread server;
     public boolean running;
+    ArrayList<ClientHandler> clients = new ArrayList<>();
     public ServerWorldChain(World world, int port) {
         super(world);
         this.world = world;
@@ -27,7 +29,9 @@ public class ServerWorldChain extends LocalWorldChain {
                 while (running) {
                     Socket clientSocket = serverSocket.accept();
 
-                    Thread clientThread = new Thread(new ClientHandler(clientSocket));
+                    ClientHandler client = new ClientHandler(clientSocket);
+                    Thread clientThread = new Thread(client);
+                    clients.add(client);
                     clientThread.start();
                 }
             } catch (IOException e) {
@@ -39,6 +43,9 @@ public class ServerWorldChain extends LocalWorldChain {
 
     public void dispose(){
         super.dispose();
+        for (ClientHandler client : clients){
+            client.writer.println("bye");
+        }
         LogMaster.INSTANCE.log("Server stopped");
         server.interrupt();
     }

@@ -9,7 +9,7 @@ public class ClientWorldChain implements IWorldChain {
     String host;
     int port;
     int[] size;
-    ServerHandler serverHandler;
+    public ServerHandler serverHandler;
     Map<String, Chunk> chunks;
     EntityManager entityManager;
     public ClientWorldChain(String host, int port) {

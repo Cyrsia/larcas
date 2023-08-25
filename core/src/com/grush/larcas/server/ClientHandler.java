@@ -11,7 +11,8 @@ import java.util.Arrays;
 
 class ClientHandler implements Runnable {
     private final Socket clientSocket;
-
+    Player player;
+    public PrintWriter writer;
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
@@ -21,7 +22,7 @@ class ClientHandler implements Runnable {
         LogMaster.INSTANCE.log("ClientHandler: " + clientSocket.toString());
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+            writer = new PrintWriter(clientSocket.getOutputStream(), true);
 
             String inputLine;
             while ((inputLine = reader.readLine()) != null) {
@@ -52,6 +53,10 @@ class ClientHandler implements Runnable {
                         }
                     }
                     writer.println();
+                } else if (inputLine.equals("PlayerSpawn")) {
+                    player = new Player(new Coordinate<>(50f, 50f), null, ServerVarField.worldChain);
+                    player.spawn();
+                    writer.println("PlayerSpawned [" + player.coordinate.x + ", " + player.coordinate.y + "]");
                 }
             }
 

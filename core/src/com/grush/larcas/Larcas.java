@@ -26,6 +26,8 @@ public class Larcas extends ApplicationAdapter {
 			}
 		}
 
+		LogMaster.INSTANCE.log(Player.PLAYER);
+
 		LogMaster.INSTANCE.log(GameLogic.INSTANCE);
 
 		VarField.actionHost.spawn(Player.PLAYER);

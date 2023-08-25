@@ -3,7 +3,7 @@ package com.grush.larcas;
 import java.util.Map;
 
 public abstract class Entity implements Renderable {
-    Coordinate<Float> coordinate;
+    public Coordinate<Float> coordinate;
     Map<?, ?> states;
     boolean visible = true;
     float interactionRange = 4f;

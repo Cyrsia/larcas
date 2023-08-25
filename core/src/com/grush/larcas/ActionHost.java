@@ -1,5 +1,7 @@
 package com.grush.larcas;
 
+import com.grush.larcas.server.ClientWorldChain;
+
 public class ActionHost {
     public void jump(Entity entity){
         entity.jump();
@@ -28,19 +30,19 @@ public class ActionHost {
             case EntityAction:{
                 switch (action.entityActionType){
                     case JUMP:{
-                        jump(action.entity);
+                        ((ClientWorldChain) VarField.worldChain).serverHandler.writer.println("PlayerAction jump");
                         break;
                     }
                     case SPELL:{
-                        spell(action.entity, action.actionNum);
+                        ((ClientWorldChain) VarField.worldChain).serverHandler.writer.println("PlayerAction spell " + action.actionNum);
                         break;
                     }
                     case HIT:{
-                        hit(action.entity);
+                        ((ClientWorldChain) VarField.worldChain).serverHandler.writer.println("PlayerAction hit");
                         break;
                     }
                     case INTERACT:{
-                        interact(action.entity);
+                        ((ClientWorldChain) VarField.worldChain).serverHandler.writer.println("PlayerAction interact");
                         break;
                     }
                     case SPAWN:{

@@ -1,9 +1,6 @@
 package com.grush.larcas.server;
 
-import com.grush.larcas.BreakableBlock;
-import com.grush.larcas.Chunk;
-import com.grush.larcas.LogMaster;
-import com.grush.larcas.VarField;
+import com.grush.larcas.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +14,7 @@ public class ServerHandler {
     int port;
     Socket socket;
     BufferedReader reader;
-    PrintWriter writer;
+    public PrintWriter writer;
     Thread Receiver;
     ClientWorldChain world;
     public ServerHandler(String host, int port, ClientWorldChain world) {
@@ -37,8 +34,15 @@ public class ServerHandler {
         }
         Receiver = new Thread(() -> receiver(reader));
         Receiver.start();
-
         writer.println("ClientHello");
+        writer.println("PlayerSpawn");
+        while (Player.PLAYER == null) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                LogMaster.INSTANCE.error(e);
+            }
+        }
     }
 
     public void receiver(BufferedReader reader) {
@@ -76,6 +80,11 @@ public class ServerHandler {
                         }
                         i++;
                     }
+                } else if (inputLine.equals("bye")) {
+                    break;
+                } else if (inputLine.startsWith("PlayerSpawned")) {
+                    String[] xy = inputLine.replaceAll("PlayerSpawned ", "").replaceAll("[\\[\\]]", "").split(", ");
+                    Player.PLAYER.coordinate = new Coordinate<Float>(Float.parseFloat(xy[0]), Float.parseFloat(xy[1]));
                 }
                 previousLine = inputLine;
             }

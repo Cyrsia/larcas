@@ -8,6 +8,12 @@ public class World {
     private final Chunk[][] data = new Chunk[sizeY][sizeX];
     public static World INSTANCE_ = new World();
     public static float gravity = 0.1f;
+    IChunkFactory nullFactory = new IChunkFactory() {
+        @Override
+        public Chunk generateChunk(int x, int y, IWorldChain worldChain) {
+            return IChunkFactory.super.generateChunk(x, y, worldChain);
+        }
+    };
     IWorldChain worldChain;
     IChunkFactory factory;
     public int[] getSize(){
@@ -29,11 +35,16 @@ public class World {
     }
 
     public Chunk getChunk(int x, int y){
-        Chunk chunk = this.data[y][x];
-        if (chunk == null){
-            this.data[y][x] = factory.generateChunk(x, y, worldChain);
+        try {
+            Chunk chunk = this.data[y][x];
+            if (chunk == null){
+                this.data[y][x] = this.factory.generateChunk(x, y, worldChain);
+            }
+            return this.data[y][x];
+
+        } catch (Exception e) {
+            return  this.nullFactory.generateChunk(x, y, worldChain);
         }
-        return this.data[y][x];
     }
     public boolean isValidPosition(int x, int y) {
         return (x >= 0 && x < sizeX*Chunk.sizeX) && (y >= 0 && y < sizeY*Chunk.sizeY);

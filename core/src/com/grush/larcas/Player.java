@@ -2,18 +2,16 @@ package com.grush.larcas;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Entity {
     static IWorldChain worldChain = VarField.worldChain;
-    final public static Player PLAYER = new Player(new Coordinate<>((float) worldChain.getSize()[0]/2, (float) worldChain.getSize()[1]/2), new HashMap<>(), worldChain);
+    public final static Player PLAYER = new Player(new Coordinate<>(0f,0f), null, worldChain);
     float speed = 0.15f;
     Camera camera;
 
-    private Player(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain) {
+    public Player(Coordinate<Float> coordinate, Map<?, ?> states, IWorldChain worldChain) {
         super(coordinate, states, worldChain);
-        LogMaster.INSTANCE.log("Player");
         this.size = new float[]{0.75f, 0.75f};
         camera = Camera.INSTANCE;
         this.hp = 1000;

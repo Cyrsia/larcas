@@ -37,16 +37,11 @@ public class Chunk {
         if (this.isValidCoordinates(x,y)){
             return block(x, y);
         } else {
-            LogMaster.INSTANCE.log("getBlock(Chunk) null");
-            return null;
+            return new VoidBlock(this.x*sizeX + x, this.y*sizeY + y, worldChain);
         }
     }
     public boolean isValidCoordinates(int x, int y) {
         boolean res = x >= 0 && x < Chunk.sizeX && y >= 0 && y < Chunk.sizeY;
-        if (!res) {
-            LogMaster.INSTANCE.log("isValidCoordinates false");
-            throw new IllegalArgumentException();
-        }
         return res;
     }
 }
